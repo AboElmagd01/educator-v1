@@ -5,7 +5,7 @@
   <title>Title</title>
   <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js">
-    <script src="https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js"></script>
+    <script src="gestures.js"></script>
 
   <style>
     .arjs-loader {
@@ -36,7 +36,7 @@
 <!--  <div>Loading, please wait...</div>-->
 <!--</div>-->
 <a-scene
-        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+        arjs
         embedded
         renderer="logarithmicDepthBuffer: true;"
         vr-mode-ui="enabled: false"
@@ -62,7 +62,7 @@
             id="cl-model"
             gltf-model="#cl"
             position="0 0 0"
-            scale="0.05 0.05 0.05"
+            scale="0.5 0.5 0.5"
             class="clickable"
             gesture-handler
     >
