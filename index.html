@@ -44,6 +44,17 @@
           this.isPanning = true
           this.mesh.rotation.y += 4 * Math.PI / 360;
         })
+        hammertime.on("panup", () => {
+          if (!this.modelVisible) return;
+          this.isPanning = true
+          this.mesh.rotation.x -= 4 * Math.PI / 360;
+        })
+
+        hammertime.on("pandown", () => {
+          if (!this.modelVisible) return;
+          this.isPanning = true
+          this.mesh.rotation.x += 4 * Math.PI / 360;
+        })
         hammertime.on("panend", () => this.isPanning = false)
         hammertime.on("pancancel", () => this.isPanning = false)
 
