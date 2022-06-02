@@ -5,8 +5,131 @@
   <title>Title</title>
   <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js">
-    <script src="https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js"></script>
+    <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+  <script>
+      AFRAME.registerComponent("model-controller", {
+      init: function () {
+      this.el.sceneEl.addEventListener("mode-change", evt => {
+      this.enabled = !evt.detail.positioning
+    })
+      this.enabled = true;
 
+      // grab the model reference
+      document.querySelector("[gltf-model]").addEventListener("model-loaded", evt => {
+      this.mesh = evt.detail.model
+    })
+      // hammerjs input helper
+      const hammertime = new Hammer(document.body);
+
+      // scale
+      // scale is tricky, because it resets
+      var currentScale = 1;
+      hammertime.get('pinch').set({ enable: true });
+      hammertime.on("pinchstart", (ev) => {
+      currentScale = this.mesh.scale.x;
+    })
+      hammertime.on("pinchmove", (ev) => {
+      console.log("woop")
+      if (!this.enabled) return;
+      this.mesh.scale.multiplyScalar(0).addScalar(ev.scale * currentScale);
+    });
+
+      // rotation
+      // pan left/right for rotation
+      this.isPanning = false;
+      hammertime.on("panleft", () => {
+      if (!this.enabled) return;
+      this.isPanning = true
+      this.mesh.rotation.y -= 4 * Math.PI / 360;
+    })
+
+      hammertime.on("panright", () => {
+      if (!this.enabled) return;
+      this.isPanning = true
+      this.mesh.rotation.y += 4 * Math.PI / 360;
+    })
+      hammertime.on("panend", () => this.isPanning = false)
+      hammertime.on("pancancel", () => this.isPanning = false)
+
+      hammertime.on("swipeleft", ({ velocity }) => {
+      if (!this.enabled) return;
+      this.swipeVelocity = velocity
+    })
+      hammertime.on("swiperight", ({ velocity }) => {
+      if (!this.enabled) return;
+      this.swipeVelocity = velocity
+    })
+    },
+      tick: function () {
+      if (!(this.modelVisible && this.swipeVelocity && !this.isPanning)) return;
+      this.mesh.rotation.y += this.swipeVelocity * 4 * Math.PI / 360;
+      this.swipeVelocity *= 0.93;
+      if (Math.abs(this.swipeVelocity) <= 0.1) this.swipeVelocity = 0;
+    }
+    })
+
+      AFRAME.registerComponent("controller", {
+      init: function () {
+      const sceneEl = this.el.sceneEl;
+      const objects = document.querySelector("#objects")
+      const overlay = document.querySelector("#overlay")
+      const message = overlay.querySelector("#arstatus")
+      const btn     = overlay.querySelector("button")
+
+      var positionState = true;
+      var firstPosition = true;
+      function toggleMode() {
+      positionState = !positionState;
+      btn.innerHTML = positionState ? "Position-mode" : "Rotation/zoom-mode"
+      sceneEl.emit("mode-change", {"positioning": positionState});
+      sceneEl.setAttribute("ar-hit-test", "enabled", positionState)
+    }
+      btn.addEventListener("click", toggleMode)
+
+      btn.addEventListener('beforexrselect', e => {
+      e.preventDefault();
+    });
+
+      message.textContent = 'Idle...';
+      sceneEl.addEventListener('enter-vr', function () {
+      if (this.is('ar-mode')) {
+      message.textContent = 'Idle...';
+      this.addEventListener('ar-hit-test-start', function () {
+      message.innerHTML = `Scanning environment, finding surface.`
+    }, { once: true });
+      this.addEventListener('ar-hit-test-achieved', function () {
+      message.innerHTML = `Select the location to place the furniture. By tapping on the screen or selecting with your controller.`
+    }, { once: true });
+      this.addEventListener('ar-hit-test-select', function () {
+      if (firstPosition) {
+      objects.setAttribute("visible", "true")
+      btn.removeAttribute("hidden")
+      toggleMode();
+    }
+      firstPosition = false;
+      message.textContent = 'Object placed!';
+    }, { once: true });
+    }
+    });
+    }
+    })
+
+      AFRAME.registerComponent('follow-shadow', {
+      schema: { type: 'selector' },
+      init() {
+      this.el.object3D.renderOrder = -1;
+      this.el.sceneEl.addEventListener('enter-vr', evt => {
+      this.vrMode = true;
+    })
+    },
+      tick() {
+      if (this.data && this.vrMode) {
+      this.el.object3D.position.copy(this.data.object3D.position);
+      this.el.object3D.position.y -= 0.001; // stop z-fighting
+    }
+    }
+    });
+  </script>
   <style>
     .arjs-loader {
       height: 100%;
@@ -35,8 +158,7 @@
 <!--<div class="arjs-loader">-->
 <!--  <div>Loading, please wait...</div>-->
 <!--</div>-->
-<a-scene
-        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+<a-scene         arjs
         embedded
         renderer="logarithmicDepthBuffer: true;"
         vr-mode-ui="enabled: false"
