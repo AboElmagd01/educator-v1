@@ -1,99 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>v</title>
-    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"> </script>
-    <script src="gestures.js"></script>
-    <style>
-        .arjs-loader {
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+  <script>
+    AFRAME.registerComponent("controller", {
+      init: function () {
+        this.modelVisible = false;
+        // track markerFound/markerLost
+        this.el.addEventListener("markerFound", () => this.modelVisible = true);
+        this.el.addEventListener("markerLost", () => this.modelVisible = false);
+        // grab the model reference
+        document.querySelector("[gltf-model]").addEventListener("model-loaded", evt => {
+          this.mesh = evt.detail.model
+        })
+        // hammerjs input helper
+        const hammertime = new Hammer(document.body);
 
-        .arjs-loader div {
-            text-align: center;
-            font-size: 1.25em;
-            color: white;
-        }
-    </style>
+        // scale
+        // scale is tricky, because it resets
+        var currentScale = 1;
+        hammertime.get('pinch').set({ enable: true });
+        hammertime.on("pinchstart", (ev) => {
+          currentScale = this.mesh.scale.x;
+        })
+        hammertime.on("pinchmove", (ev) => {
+          if (!this.modelVisible) return;
+          this.mesh.scale.multiplyScalar(0).addScalar(ev.scale * currentScale);
+        });
 
+        // rotation
+        // pan left/right for rotation
+        this.isPanning = false;
+        hammertime.on("panleft", () => {
+          if (!this.modelVisible) return;
+          this.isPanning = true
+          this.mesh.rotation.y -= 4 * Math.PI / 360;
+        })
+
+        hammertime.on("panright", () => {
+          if (!this.modelVisible) return;
+          this.isPanning = true
+          this.mesh.rotation.y += 4 * Math.PI / 360;
+        })
+        hammertime.on("panend", () => this.isPanning = false)
+        hammertime.on("pancancel", () => this.isPanning = false)
+
+        hammertime.on("swipeleft",  ({velocity}) => {
+          if (!this.modelVisible) return;
+          this.swipeVelocity = velocity
+        })
+        hammertime.on("swiperight", ({velocity}) => {
+          if (!this.modelVisible) return;
+          this.swipeVelocity = velocity
+        })
+      },
+      tick: function() {
+        if (!(this.modelVisible && this.swipeVelocity &&!this.isPanning)) return;
+        this.mesh.rotation.y += this.swipeVelocity * 4 * Math.PI / 360;
+        this.swipeVelocity *= 0.93;
+        if (Math.abs(this.swipeVelocity) <= 0.1) this.swipeVelocity = 0;
+      }
+    })
+  </script>
 </head>
 
-
 <body style="margin : 0px; overflow: hidden;">
-<!-- minimal loader shown until image descriptors are loaded. Loading may take a while according to the device computational power -->
-<div class="arjs-loader">
-    <div>Loading, please wait...</div>
-</div>
 
-<!-- a-frame scene -->
-<!--<a-scene-->
-<!--        vr-mode-ui="enabled: false;"-->
-<!--        renderer="logarithmicDepthBuffer: true;"-->
-<!--        embedded-->
-<!--        arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"-->
-<!--&gt;-->
-<!--    &lt;!&ndash; a-nft is the anchor that defines an Image Tracking entity &ndash;&gt;-->
-<!--    &lt;!&ndash; on 'url' use the path to the Image Descriptors created before. &ndash;&gt;-->
-<!--    &lt;!&ndash; the path should end with the name without the extension e.g. if file is 'pinball.fset' the path should end with 'pinball' &ndash;&gt;-->
-<!--    <a-nft-->
-<!--            type="nft"-->
-<!--            url="nftCreated/Chlorine-A"-->
-<!--            smooth="true"-->
-<!--            smoothCount="10"-->
-<!--            smoothTolerance=".01"-->
-<!--            smoothThreshold="5"-->
-<!--    >-->
-<!--        &lt;!&ndash; as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity &ndash;&gt;-->
-<!--        <a-entity-->
-<!--                gltf-model="models/NA.gltf"-->
-<!--                scale="60 60 60"-->
-<!--                position="60 160 0.5"-->
-<!--        >-->
-<!--        </a-entity>-->
-<!--    </a-nft>-->
-<!--    &lt;!&ndash; static camera that moves according to the device movemenents &ndash;&gt;-->
-<!--    <a-entity camera></a-entity>-->
-<!--</a-scene>-->
-<a-scene
-        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
-        embedded
-        renderer="logarithmicDepthBuffer: true;"
-        vr-mode-ui="enabled: false"
-        gesture-detector
-        id="scene"
->
-    <a-nft
-            type="nft"
-            url="nftCreated/Chlorine"
-            smooth="true"
-            smoothCount="10"
-            smoothTolerance=".01"
-            smoothThreshold="30"
-            raycaster="objects: .clickable"
-            emitevents="true"
-            cursor="fuse: false; rayOrigin: mouse;"
-    >
-        <a-entity
-                gltf-model="models/NA.gltf"
-                scale="50 50 50"
-                position="300 450 0"
-                class="clickable"
-                gesture-handler="minScale: 0.25; maxScale: 10"
-        >
-        </a-entity>
-    </a-nft>
-    <a-entity camera></a-entity>
+<a-scene renderer="logarithmicDepthBuffer: true; colorManagement: true" embedded arjs>
+  <a-assets>
+    <a-asset-item id="model" src="models/NA.gltf"></a-asset-item>
+  </a-assets>
+  <a-marker type="pattern" url="nftCreated/pattern-Chlorine-A.patt" controller>
+    <a-entity position="0 0 0" gltf-model="#model" scale="0.05 0.05 0.05"></a-entity>
+  </a-marker>
+  <a-entity camera></a-entity>
 </a-scene>
 </body>
+
 </html>
