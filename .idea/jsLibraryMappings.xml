@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{aframe-ar-nft, aframe-master}" />
+    <file url="PROJECT" libraries="{aframe-ar, aframe-ar-nft, aframe-master, hammer}" />
   </component>
 </project>

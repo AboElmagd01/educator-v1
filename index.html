@@ -66,6 +66,9 @@
           if (!this.modelVisible) return;
           this.swipeVelocity = velocity
         })
+        hammertime.on("press", ({}) => {
+         alert('hi')
+        })
       },
       tick: function() {
         if (!(this.modelVisible && this.swipeVelocity &&!this.isPanning)) return;
@@ -79,17 +82,14 @@
 
 <body style="margin : 0px; overflow: hidden;">
 
-<a-scene renderer="logarithmicDepthBuffer: true; colorManagement: true" embedded arjs>
+<a-scene renderer="logarithmicDepthBuffer: true; colorManagement: true"   vr-mode-ui="enabled: false" embedded arjs>
   <a-assets>
     <a-asset-item id="model" src="models/NA.gltf"></a-asset-item>
   </a-assets>
   <a-marker type="pattern" url="nftCreated/pattern-Chlorine-A.patt" controller>
-    <a-entity  position="0 0 0" gltf-model="#model" scale="0.05 0.05 0.05" text__desc="align: center; color: #613583; value:     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet animi architecto cumque dolore magnam natus officiis pariatur tempora totam? Assumenda beatae commodi consequatur esse facere ipsam minima, quibusdam repellat! Debitis eligendi facilis, hic placeat porro quibusdam quidem saepe totam vero. Accusamus aliquid atque consectetur labore obcaecati omnis quos sed.
- "></a-entity>
+    <a-entity  position="0 0 0" gltf-model="#model" scale="0.05 0.05 0.05"></a-entity>
+    <a-text position="0 0 0" rotation="" width="1" height="1" text="value: Hello World; alphaTest: 0.45; color: #ffffff; height: 0.5; width: 0.5; yOffset: -1; align: center; lineHeight: 0.2; opacity: 1.21; zOffset: 0.131" material="">&gt;</a-text>
   </a-marker>
-  <a-entity camera></a-entity>
-
-</a-scene>
+ </a-scene>
 </body>
-
 </html>
