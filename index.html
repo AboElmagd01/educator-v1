@@ -14,10 +14,11 @@
         this.el.addEventListener("markerLost", () => this.modelVisible = false);
         // grab the model reference
         document.querySelector("[gltf-model]").addEventListener("model-loaded", evt => {
-          this.mesh = evt.detail.model
+          this.mesh = evt.detail.model;
+          this.desc = document.querySelector("#desc").object3D;
         })
 
-        this.desc = document.querySelector("#desc");
+
         // hammerjs input helper
         const hammertime = new Hammer(document.body);
 
@@ -27,12 +28,12 @@
         hammertime.get('pinch').set({ enable: true });
         hammertime.on("pinchstart", (ev) => {
           currentScale = this.mesh.scale.x;
-          currentScaleText = this.desc.Object3D.scale.x;
+          currentScaleText = this.desc.scale.x;
         })
         hammertime.on("pinchmove", (ev) => {
           if (!this.modelVisible) return;
           this.mesh.scale.multiplyScalar(0).addScalar(ev.scale * currentScale);
-          this.mesh.Object3D.scale.multiplyScalar(0).addScalar(ev.scale * currentScaleText);
+          this.desc.scale.multiplyScalar(0).addScalar(ev.scale * currentScaleText);
         });
 
         // rotation
