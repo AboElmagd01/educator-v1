@@ -72,6 +72,10 @@
           if (!this.modelVisible) return;
           this.swipeVelocity = velocity
         })
+        hammertime.on("press", () => {
+          if (!this.modelVisible) return;
+          this.desc.visible = this.desc.visible !== true;
+        })
       },
       tick: function() {
         if (!(this.modelVisible && this.swipeVelocity &&!this.isPanning)) return;
@@ -91,7 +95,7 @@
   </a-assets>
   <a-marker type="pattern" url="nftCreated/pattern-Chlorine-A.patt" controller>
     <a-entity position="0 0 0" gltf-model="#model" scale="0.05 0.05 0.05" >
-      <a-entity id="desc" position="0 1 0"  rotation="-90 0 0" text="value:  Hello World"  scale="50 50 50"></a-entity>
+      <a-entity id="desc" position="0 1 0"  rotation="-90 0 0" text="value:  Hello World"  scale="15 15 15"></a-entity>
     </a-entity>
   </a-marker>
   <a-entity camera></a-entity>
