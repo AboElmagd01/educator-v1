@@ -79,13 +79,12 @@
 
 <body style="margin : 0px; overflow: hidden;">
 
-<a-scene renderer="logarithmicDepthBuffer: true; colorManagement: true" embedded arjs>
+<a-scene renderer="logarithmicDepthBuffer: true; colorManagement: true" vr-mode-ui="enabled: false" embedded arjs>
   <a-assets>
     <a-asset-item id="model" src="models/NA.gltf"></a-asset-item>
   </a-assets>
   <a-marker type="pattern" url="nftCreated/pattern-Chlorine-A.patt" controller>
-    <a-entity position="0 0 0" gltf-model="#model" scale="0.05 0.05 0.05">
-      <a-text position="0 0 0" rotation="" width="1" height="1" text="value: Hello World; alphaTest: 0.45; color: #ffffff; height: 0.5; width: 0.5; yOffset: -1; align: center; lineHeight: 0.2; opacity: 1.21; zOffset: 0.131" material="">&gt;</a-text>
+    <a-entity position="0 0 0" gltf-model="#model" scale="0.05 0.05 0.05" text="value:  Hello World;  alphaTest:  0.81;  color:  #ffffff;  height:  1.3;  width:  7.23;  yOffset:  3.08;  lineHeight:  1.11;  opacity:  2.99;  zOffset:  1.761;  letterSpacing:  -0.35;  tabSize:  4.98;  wrapCount:  39.94;  xOffset:  -1.4">
     </a-entity>
   </a-marker>
   <a-entity camera></a-entity>
