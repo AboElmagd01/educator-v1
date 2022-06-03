@@ -39,11 +39,11 @@
           currentScale = this.model.scale.x;
           currentScaleText = this.desc.scale.x;
         })
-        hammertime.on("pinchmove", (ev) => {
+        hammertime.on("pinchend", (ev) => {
           if (!this.modelVisible) return;
-          modelsObjects.forEach((x) => x.multiplyScalar(0).addScalar(ev.scale * currentScale));
+          modelsObjects.forEach((x) => x.scale.multiplyScalar(0).addScalar(ev.scale * currentScale));
 
-          modelsDesc.forEach((x) => x.multiplyScalar(0).addScalar(ev.scale * currentScaleText));
+          modelsDesc.forEach((x) => x.scale.multiplyScalar(0).addScalar(ev.scale * currentScaleText));
         });
 
         // rotation
@@ -92,6 +92,7 @@
         hammertime.on("press", () => {
           if (!this.modelVisible) return;
           // this.desc.visible = this.desc.visible !== true;
+          modelsDesc.forEach((x) => x.visible= x.visible !==true)
         })
       },
       tick: function() {
