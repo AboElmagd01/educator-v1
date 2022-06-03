@@ -91,7 +91,7 @@
         this.el.addEventListener("markerFound", () => this.modelVisible = true);
         this.el.addEventListener("markerLost", () => this.modelVisible = false);
         // grab the model reference
-        document.querySelector("[gltf-model]").addEventListener("model-loaded", evt => {
+        document.querySelector("#na-model").addEventListener("model-loaded", evt => {
           this.mesh = evt.detail.model;
           this.desc = document.querySelector("#na").object3D;
         })
