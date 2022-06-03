@@ -16,6 +16,10 @@
         document.querySelector("[gltf-model]").addEventListener("model-loaded", evt => {
           this.mesh = evt.detail.model
         })
+
+        document.querySelector("#desc").addEventListener("model-loaded", evt => {
+          this.desc = evt.detail.desc
+        })
         // hammerjs input helper
         const hammertime = new Hammer(document.body);
 
@@ -25,10 +29,12 @@
         hammertime.get('pinch').set({ enable: true });
         hammertime.on("pinchstart", (ev) => {
           currentScale = this.mesh.scale.x;
+          currentScaleText = this.desc.scale.x;
         })
         hammertime.on("pinchmove", (ev) => {
           if (!this.modelVisible) return;
           this.mesh.scale.multiplyScalar(0).addScalar(ev.scale * currentScale);
+          this.desc.scale.multiplyScalar(0).addScalar(ev.scale * currentScaleText);
         });
 
         // rotation
@@ -87,7 +93,7 @@
   <a-marker type="pattern" url="nftCreated/pattern-Chlorine-A.patt" controller>
     <a-entity position="0 0 0" gltf-model="#model" scale="0.05 0.05 0.05" >
       <a-plane rotation="-90 0 0" position="0 1 0"  material="opacity: 0.7" color="red"></a-plane>
-      <a-text position="0 1 0"  rotation="-90 0 0" text="value:  Hello World"   scale="50 50 50"></a-text>
+      <a-text id="desc" position="0 1 0"  rotation="-90 0 0" text="value:  Hello World"   scale="50 50 50"></a-text>
     </a-entity>
   </a-marker>
   <a-entity camera></a-entity>
