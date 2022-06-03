@@ -12,5 +12,6 @@
     <orderEntry type="library" name="aframe-master" level="application" />
     <orderEntry type="library" name="aframe-ar" level="application" />
     <orderEntry type="library" name="hammer" level="application" />
+    <orderEntry type="library" name="aframe-text-geometry-component" level="application" />
   </component>
 </module>
