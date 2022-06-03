@@ -92,9 +92,15 @@
 <a-scene renderer="logarithmicDepthBuffer: true; colorManagement: true" vr-mode-ui="enabled: false" embedded arjs>
   <a-assets>
     <a-asset-item id="model" src="models/NA.gltf"></a-asset-item>
+    <a-asset-item id="NA" src="models/hydrogen.gltf"></a-asset-item>
   </a-assets>
   <a-marker type="pattern" url="nftCreated/pattern-Chlorine-A.patt" controller>
     <a-entity position="0 0 0" gltf-model="#model" scale="0.05 0.05 0.05" >
+      <a-entity id="desc" position="0 1 0"  rotation="-90 0 0" text="value:  Hello World"  scale="15 15 15"></a-entity>
+    </a-entity>
+  </a-marker>
+  <a-marker type="pattern" url="nftCreated/pattern-Sodium-A.patt" controller>
+    <a-entity position="0 0 0" gltf-model="#NA" scale="0.05 0.05 0.05" >
       <a-entity id="desc" position="0 1 0"  rotation="-90 0 0" text="value:  Hello World"  scale="15 15 15"></a-entity>
     </a-entity>
   </a-marker>
