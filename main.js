@@ -1,16 +1,31 @@
+loadedModels = [];
 function setController(model){
     AFRAME.registerComponent(model+"-controller", {
         init: function () {
             this.modelVisible = false;
             // track markerFound/markerLost
-            this.el.addEventListener("markerFound", () => this.modelVisible = true);
-            this.el.addEventListener("markerLost", () => this.modelVisible = false);
+            this.el.addEventListener("markerFound", () => {
+                this.modelVisible = true;
+                if (loadedModels.indexOf(model) === -1 )
+                    loadedModels.push(model);
+                if (loadedModels.length>1)
+                    this.modelVisible = false;
+            });
+            this.el.addEventListener("markerLost", () => {
+                this.modelVisible = false;
+                const index = loadedModels.indexOf(model);
+                if (index > -1) {
+                    loadedModels.splice(index, 1);
+                }
+            });
+
+
+
             // grab the model reference
             document.querySelector("#"+model+ "-model").addEventListener("model-loaded", evt => {
                 this.mesh = evt.detail.model;
                 this.desc = document.querySelector("#"+model+"-desc").object3D;
             })
-
 
             // hammerjs input helper
             const hammertime = new Hammer(document.body);
