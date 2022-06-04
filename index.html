@@ -23,6 +23,10 @@
                     id="animated-asset"
                     src="assets/asset.glb"
                 ></a-asset-item>
+                <a-asset-item
+                    id="na-asset"
+                    src="models/NA.gltf"
+                ></a-asset-item>
             </a-assets>
 
             <a-marker
@@ -40,6 +44,25 @@
                     scale="0.6245663046653928 0.6245663046653928 0.6245663046653928"
                     animation-mixer="loop: repeat"
                     gltf-model="#animated-asset"
+                    class="clickable"
+                    gesture-handler
+                ></a-entity>
+            </a-marker>
+            <a-marker
+                id="na-marker"
+                type="pattern"
+                preset="custom"
+                url="nftCreated/pattern-Sodium-A.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+                id="markerA"
+            >
+                <a-entity
+                    id="na-bowser-model"
+                    scale="0.6245663046653928 0.6245663046653928 0.6245663046653928"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#na-asset"
                     class="clickable"
                     gesture-handler
                 ></a-entity>
