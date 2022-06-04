@@ -13,5 +13,8 @@
     <orderEntry type="library" name="aframe-ar" level="application" />
     <orderEntry type="library" name="hammer" level="application" />
     <orderEntry type="library" name="aframe-text-geometry-component" level="application" />
+    <orderEntry type="library" name="aframe-extras.loaders" level="application" />
+    <orderEntry type="library" name="gesture-detector" level="application" />
+    <orderEntry type="library" name="gesture-handler" level="application" />
   </component>
 </module>

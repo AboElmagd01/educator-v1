@@ -1,38 +1,51 @@
+<!doctype html>
 <html>
+    <head>
+        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+        <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
+        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+    </head>
 
-<head>
-  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-  <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
-  <script src="https://unpkg.com/aframe-text-geometry-component@0.5.1/dist/aframe-text-geometry-component.min.js"></script>
-  <script src="main.js"></script>
-  <script>
-    models = ['na' ,'h']
-    for (const model of models) {
-      setController(model)
-    }
-  </script>
-</head>
+    <body style="margin: 0; overflow: hidden;">
+        <a-scene
+            vr-mode-ui="enabled: false;"
+            loading-screen="enabled: false;"
+            renderer="logarithmicDepthBuffer: true;"
+            arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+            id="scene"
+            embedded
+            gesture-detector
+        >
+            <a-assets>
+                <a-asset-item
+                    id="animated-asset"
+                    src="assets/asset.glb"
+                ></a-asset-item>
+            </a-assets>
 
-<body style="margin : 0px; overflow: hidden;">
+            <a-marker
+                id="animated-marker"
+                type="pattern"
+                preset="custom"
+                url="assets/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+                id="markerA"
+            >
+                <a-entity
+                    id="bowser-model"
+                    scale="0.6245663046653928 0.6245663046653928 0.6245663046653928"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#animated-asset"
+                    class="clickable"
+                    gesture-handler
+                ></a-entity>
+            </a-marker>
 
-<a-scene renderer="logarithmicDepthBuffer: true; colorManagement: true" vr-mode-ui="enabled: false" embedded arjs>
-  <a-assets>
-    <a-asset-item id="na-gltf" src="models/NA.gltf"></a-asset-item>
-    <a-asset-item id="h-gltf" src="models/hydrogen.gltf"></a-asset-item>
-  </a-assets>
-  <a-marker type="pattern" url="nftCreated/pattern-Chlorine-A.patt" h-controller>
-    <a-entity id="h-model" position="0 0 0" gltf-model="#h-gltf" scale="0.05 0.05 0.05" >
-      <a-entity id="h-desc" position="0 1 0"  rotation="-90 0 0" text="value:  Hello World"  scale="15 15 15"></a-entity>
-    </a-entity>
-  </a-marker>
-  <a-marker type="pattern" url="nftCreated/pattern-Sodium-A.patt" na-controller>
-    <a-entity id="na-model" position="0 0 0" gltf-model="#na-gltf" scale="0.05 0.05 0.05" >
-      <a-entity id="na-desc" position="0 1 0"  rotation="-90 0 0" text="value:  Hello World"  scale="15 15 15"></a-entity>
-    </a-entity>
-  </a-marker>
-  <a-entity camera></a-entity>
-</a-scene>
-</body>
-
+            <a-entity camera></a-entity>
+        </a-scene>
+    </body>
 </html>
