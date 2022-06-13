@@ -16,5 +16,6 @@
     <orderEntry type="library" name="aframe-extras.loaders" level="application" />
     <orderEntry type="library" name="gesture-detector" level="application" />
     <orderEntry type="library" name="gesture-handler" level="application" />
+    <orderEntry type="library" name="three" level="application" />
   </component>
 </module>
