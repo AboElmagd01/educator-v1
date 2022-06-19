@@ -52,6 +52,7 @@
                     gesture-handler
                 ></a-entity>
             </a-marker>
+
             <a-marker
                 id="na-marker"
                 type="pattern"
@@ -66,16 +67,17 @@
                     id="na-bowser-model"
                     scale="0.05 0.05 0.05"
                     animation-mixer="loop: repeat"
-                    gltf-model="#nacl-asset"
+                    gltf-model="#na-asset"
                     class="clickable"
                     gesture-handler
                 ></a-entity>
             </a-marker>
+
             <a-marker
                 id="nacl-marker"
                 type="pattern"
                 preset="custom"
-                url="nftCreated/salt.patt"
+                url="nftCreated/pattern-NACL.patt"
                 raycaster="objects: .clickable"
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
