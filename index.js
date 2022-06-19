@@ -1,9 +1,7 @@
 AFRAME.registerComponent('cursor-listener', {
     init: function () {
-        var COLORS = ['red', 'green', 'blue'];
         this.el.addEventListener('click', function (evt) {
-            var randomIndex = Math.floor(Math.random() * COLORS.length);
-            this.setAttribute('material', 'color', COLORS[randomIndex]);
+            this.setAttribute('display', 'none');
         });
     }
 });
