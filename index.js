@@ -9,11 +9,11 @@ AFRAME.registerComponent('cursor-listener', {
 AFRAME.registerComponent('marker-handler', {
     init: function () {
         this.el.sceneEl.addEventListener('markerFound', () => {
-            if (localStorage["loaded Model"]) {
-                alert(localStorage['loaded Model'] , this.el.sceneEl.id);
+            if (localStorage["loadedModel"] != null) {
+                alert(localStorage['loadedModel'] , this.el.sceneEl.entity.id);
             }else
             {
-                localStorage['loaded Model'] = this.el.sceneEl.id;
+                localStorage['loadedModel'] = this.el.sceneEl.entity.id;
             }
         });
     }
