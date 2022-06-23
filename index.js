@@ -20,5 +20,10 @@ AFRAME.registerComponent('marker-handler', {
                 document.querySelector('#nacl-model').setAttribute('visible', 'true');
             }
         });
+        this.el.sceneEl.addEventListener('markerLost', function (evt) {
+            if (loadedModels.indexOf(evt.target.id) !== -1) {
+                loadedModels.splice(loadedModels.indexOf(evt.target.id), 1)
+            }
+        });
     }
 });
