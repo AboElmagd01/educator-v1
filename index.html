@@ -18,6 +18,7 @@
             id="scene"
             embedded
             gesture-detector
+            marker-handler
         >
             <a-assets>
                 <a-asset-item
@@ -51,7 +52,6 @@
                     gltf-model="#earth-asset"
                     class="clickable"
                     gesture-handler
-                    marker-handler
                 ></a-entity>
             </a-marker>
 
@@ -72,7 +72,6 @@
                     gltf-model="#nacl-asset"
                     class="clickable"
                     gesture-handler
-                    marker-handler
                 ></a-entity>
             </a-marker>
 
@@ -86,13 +85,12 @@
                 cursor="fuse: false; rayOrigin: mouse;"
             >
                 <a-entity
-                    id="nacl-bowser-model"
+                    id="nacl-model"
                     scale="0.25 0.25 0.25"
                     animation-mixer="loop: repeat"
                     gltf-model="#na-asset"
                     class="clickable"
                     gesture-handler
-                    marker-handler
                 ></a-entity>
             </a-marker>
 

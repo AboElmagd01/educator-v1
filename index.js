@@ -5,15 +5,19 @@ AFRAME.registerComponent('cursor-listener', {
         });
     }
 });
-
+const loadedModels= []
 AFRAME.registerComponent('marker-handler', {
     init: function () {
-        this.el.sceneEl.addEventListener('markerFound', () => {
-            if (localStorage["loadedModel"] != null) {
-                alert(localStorage['loadedModel'] , this.el.sceneEl.entity.id);
-            }else
-            {
-                localStorage['loadedModel'] = this.el.sceneEl.entity.id;
+        this.el.sceneEl.addEventListener('markerFound', function (evt) {
+            if (loadedModels.indexOf(evt.target.id) === -1) {
+                loadedModels.push(evt.target.id)
+            }
+            if (loadedModels.length === 2) {
+                loadedModels.forEach(model => {
+                    let x = document.querySelector('#' + model.replace('marker', 'model'));
+                    x.setAttribute('visible', 'false');
+                });
+                document.querySelector('#nacl-model').setAttribute('visible', 'true');
             }
         });
     }
