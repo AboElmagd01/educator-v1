@@ -1,5 +1,6 @@
 
 const loadedModels= []
+// 1.0.0
 // fetch('./data.json')
 //     .then(response => response.json())
 //     .then(json => {
@@ -27,6 +28,39 @@ const loadedModels= []
 //             document.querySelector('a-scene').append(marker);
 //     }
 //     )})
+// 2.0.0-beta.1
+// $.getJSON( "data.json", function( model ) {
+//     $.each( model, function( key, val ) {
+//         var code1 =`
+//                 <a-asset-item
+//                     id="${val.name}-asset"
+//                     src="${val.src}"
+//                 ></a-asset-item>`
+//         $('.assists').append(code1)
+//         var code2 = `
+//             <a-marker
+//                 id="${val.name}-marker"
+//                 type="pattern"
+//                 preset="custom"
+//                 url="${val.pattern}"
+//                 raycaster="objects: .clickable"
+//                 emitevents="true"
+//                 cursor="fuse: false; rayOrigin: mouse;"
+//             >
+//                 <a-entity
+//                     id="${val.name}-model"
+//                     scale="${val.scale}"
+//                     animation-mixer="loop: repeat"
+//                     gltf-model="#earth-asset"
+//                     class="clickable"
+//                     gesture-handler
+//                 ></a-entity>
+//             </a-marker>`
+//         $('body').append(code2);
+//         $('body').append("<a-entity camera></a-entity>\n");
+//     });
+//
+// });
 AFRAME.registerComponent('marker-handler', {
     init: function () {
         this.el.sceneEl.addEventListener('markerFound', function (evt) {

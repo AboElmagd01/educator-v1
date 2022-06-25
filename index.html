@@ -7,41 +7,7 @@
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
         <script src="index.js"></script>
-        <script type="text/javascript" src="pdfMake/jquery.min.1.7.js"></script>
-        <script>
-            $.getJSON( "data.json", function( model ) {
-                $.each( model, function( key, val ) {
-                    var code1 =`
-                <a-asset-item
-                    id="${val.name}-asset"
-                    src="${val.src}"
-                ></a-asset-item>`
-                    $('.assists').append(code1)
-                    var code2 = `
-            <a-marker
-                id="${val.name}-marker"
-                type="pattern"
-                preset="custom"
-                url="${val.pattern}"
-                raycaster="objects: .clickable"
-                emitevents="true"
-                cursor="fuse: false; rayOrigin: mouse;"
-            >
-                <a-entity
-                    id="${val.name}-model"
-                    scale="${val.scale}"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#earth-asset"
-                    class="clickable"
-                    gesture-handler
-                ></a-entity>
-            </a-marker>`
-            $('body').append(code2);
-            $('body').append("<a-entity camera></a-entity>\n");
-                    });
-
-                });
-        </script>
+        <script type="text/javascript" src="assets/lib/jquery.min.1.7.js"></script>
     </head>
 
     <body style="margin: 0; overflow: hidden;">
@@ -57,29 +23,76 @@
             <a-assets class="assists">
                 <a-asset-item
                     id="earth-asset"
-                    src="assets/asset.glb"
+                    src="assets/models/earth.glb"
+                ></a-asset-item>
+                <a-asset-item
+                    id="na-asset"
+                    src="assets/models/na.gltf"
+                ></a-asset-item>
+                <a-asset-item
+                    id="h-asset"
+                    src="assets/models/h.gltf"
                 ></a-asset-item>
             </a-assets>
-            <div class="markers"></div>
-<!--            <a-marker-->
-<!--                id="earth-marker"-->
-<!--                type="pattern"-->
-<!--                preset="custom"-->
-<!--                url="assets/marker.patt"-->
-<!--                raycaster="objects: .clickable"-->
-<!--                emitevents="true"-->
-<!--                cursor="fuse: false; rayOrigin: mouse;"-->
-<!--                id="markerA"-->
-<!--            >-->
-<!--                <a-entity-->
-<!--                    id="earth-model"-->
-<!--                    scale="0.6245663046653928 0.6245663046653928 0.6245663046653928"-->
-<!--                    animation-mixer="loop: repeat"-->
-<!--                    gltf-model="#earth-asset"-->
-<!--                    class="clickable"-->
-<!--                    gesture-handler-->
-<!--                ></a-entity>-->
-<!--            </a-marker>-->
+
+
+            <a-marker
+                id="earth-marker"
+                type="pattern"
+                preset="custom"
+                url="assets/markers/pattern/cl.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+                id="markerA"
+            >
+                <a-entity
+                    id="earth-model"
+                    scale="0.6245663046653928 0.6245663046653928 0.6245663046653928"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#earth-asset"
+                    class="clickable"
+                    gesture-handler
+                ></a-entity>
+            </a-marker>
+
+            <a-marker
+                id="na-marker"
+                type="pattern"
+                preset="custom"
+                url="assets/markers/pattern/na.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+                <a-entity
+                    id="na-model"
+                    scale="0.25 0.25 0.25"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#na-asset"
+                    class="clickable"
+                    gesture-handler
+                ></a-entity>
+            </a-marker>
+            <a-marker
+                id="h-marker"
+                type="pattern"
+                preset="custom"
+                url="assets/markers/pattern/h.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+                <a-entity
+                    id="h-model"
+                    scale="0.25 0.25 0.25"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#h-asset"
+                    class="clickable"
+                    gesture-handler
+                ></a-entity>
+            </a-marker>
+
 
 
 

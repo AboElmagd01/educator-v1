@@ -1,6 +1,6 @@
 [
     {
-      "name": "earfth",
+      "name": "earth",
       "src": "assets/asset.glb",
       "pattern": "assets/marker.patt",
       "scale": "0.6245663046653928 0.6245663046653928 0.6245663046653928"
