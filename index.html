@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
     <head>
+
         <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
         <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
         <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
@@ -8,17 +9,21 @@
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
         <script src="index.js"></script>
         <script type="text/javascript" src="assets/lib/jquery.min.1.7.js"></script>
+
+
         <script>
             let loaded;
             window.onload = function () {
                 document.querySelector('a-scene').addEventListener('markerFound', (evt)=>{
                     loaded = evt.target.id.toString().split('-')[0];
-                    document.querySelector('.buttons').style.display = 'flex';
+                    // document.querySelector('.buttons').style.display = 'flex';
+                    document.querySelector('.buttons').style.scale = 1;
                     console.log(document.querySelector('.buttons'))
                 });
                 document.querySelector('a-scene').addEventListener('markerLost', (evt)=>{
                     loaded = null;
-                    document.querySelector('.buttons').style.display = 'none';
+                    // document.querySelector('.buttons').style.display = 'none';
+                    document.querySelector('.buttons').style.scale = 0;
                 });
                 document
                     .querySelector(".say-hi-button")
@@ -33,7 +38,8 @@
         </script>
         <style>
             .buttons {
-                display: none;
+                display: flex;
+                scale: 0;
                 position: absolute;
                 bottom: 0;
                 left: 0;
