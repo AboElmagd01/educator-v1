@@ -8,9 +8,61 @@
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
         <script src="index.js"></script>
         <script type="text/javascript" src="assets/lib/jquery.min.1.7.js"></script>
+        <script>
+            let loaded;
+            window.onload = function () {
+                document.querySelector('a-scene').addEventListener('markerFound', (evt)=>{
+                    loaded = evt.target.id.toString().split('-')[0];
+                    document.querySelector('.buttons').style.scale = 1;
+                });
+                document.querySelector('a-scene').addEventListener('markerLost', (evt)=>{
+                    loaded = null;
+                    document.querySelector('.buttons').style.scale = 0;
+                });
+                document
+                    .querySelector(".say-hi-button")
+                    .addEventListener("click", function () {
+                       if(!loaded){
+                           this.classList.add("disabled");
+                       }else {
+                           window.open(`modelViewer-${loaded}.html`,"_self");
+                       }
+                    });
+            };
+        </script>
+        <style>
+            .buttons {
+                scale: 0;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 5em;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10;
+                transition-property: all;
+                transition-duration: 250ms;
+                transition-timing-function: ease-in-out;
+            }
+
+            .say-hi-button {
+                padding: 0.25em;
+                border-radius: 4px;
+                border: none;
+                background: white;
+                color: black;
+                width: 8em;
+                height: 3em;
+            }
+        </style>
     </head>
 
     <body style="margin: 0; overflow: hidden;">
+    <div class="buttons">
+        <button class="say-hi-button">View Model</button>
+    </div>
         <a-scene
             vr-mode-ui="enabled: false;"
             loading-screen="enabled: false;"
@@ -45,6 +97,7 @@
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
                 id="markerA"
+
             >
                 <a-entity
                     id="earth-model"
@@ -94,7 +147,7 @@
             </a-marker>
 
 
-
+            <a-entity camera></a-entity>
 
         </a-scene>
     </body>
