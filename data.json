@@ -1,0 +1,20 @@
+[
+    {
+      "name": "earfth",
+      "src": "assets/asset.glb",
+      "pattern": "assets/marker.patt",
+      "scale": "0.6245663046653928 0.6245663046653928 0.6245663046653928"
+    },
+    {
+      "name": "na",
+      "src": "models/NA.gltf",
+      "pattern": "nftCreated/pattern-Sodium-A.patt",
+        "scale": "0.25 0.25 0.25"
+    },
+    {
+      "name": "nacl",
+      "src": "models/NaCl.gltf",
+      "pattern": "nftCreated/pattern-hydrogen-A.patt",
+      "scale": "0.25 0.25 0.25"
+    }
+]
