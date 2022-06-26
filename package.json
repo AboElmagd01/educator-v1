@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@ar-js-org/ar.js": "^3.4.0",
-    "http-server": "^14.1.1"
-  }
-}

@@ -14,12 +14,22 @@
 
 
         <script>
+            function stopStreamedVideo(videoElem) {
+                const stream = videoElem.srcObject;
+                const tracks = stream.getTracks();
+
+                tracks.forEach(function(track) {
+                    track.stop();
+                });
+
+                videoElem.srcObject = null;
+            }
+
             let loaded;
             window.onload = function () {
                 document.querySelector('a-scene').addEventListener('markerFound', (evt)=>{
                     loaded = evt.target.id.toString().split('-')[0];
                     document.querySelector('.buttons').style.display = 'flex';
-                    console.log(document.querySelector('.buttons'))
                 });
                 document.querySelector('a-scene').addEventListener('markerLost', (evt)=>{
                     loaded = null;
@@ -35,8 +45,7 @@
                            document.querySelector('#arjs-video').style.display ='none';
                            document.querySelector('model-viewer').src = `assets/models/${loaded}.glb`;
                            document.querySelector('.viewer').style.display ='block';
-                       }
-                    });
+                    }});
                 document
                     .querySelector(".return-button")
                     .addEventListener("click", function () {
@@ -44,7 +53,7 @@
                            document.querySelector('a-scene').style.display ='block';
                            document.querySelector('#arjs-video').style.display ='block';
 
-                    });
+            });
             };
         </script>
         <style>
