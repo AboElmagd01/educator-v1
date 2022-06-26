@@ -16,14 +16,12 @@
             window.onload = function () {
                 document.querySelector('a-scene').addEventListener('markerFound', (evt)=>{
                     loaded = evt.target.id.toString().split('-')[0];
-                    // document.querySelector('.buttons').style.display = 'flex';
-                    document.querySelector('.buttons').style.scale = 1;
+                    document.querySelector('.buttons').style.display = 'flex';
                     console.log(document.querySelector('.buttons'))
                 });
                 document.querySelector('a-scene').addEventListener('markerLost', (evt)=>{
                     loaded = null;
-                    // document.querySelector('.buttons').style.display = 'none';
-                    document.querySelector('.buttons').style.scale = 0;
+                    document.querySelector('.buttons').style.display = 'none';
                 });
                 document
                     .querySelector(".say-hi-button")
@@ -38,7 +36,7 @@
         </script>
         <style>
             .buttons {
-                display: flex;
+                display: none;
                 position: absolute;
                 bottom: 0;
                 left: 0;
@@ -54,7 +52,6 @@
             }
 
             .say-hi-button {
-                scale: 0;
                 padding: 0.25em;
                 border-radius: 4px;
                 border: none;
