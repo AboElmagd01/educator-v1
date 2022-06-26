@@ -33,13 +33,13 @@
                        }else {
                            document.querySelector('a-scene').style.display ='none';
                            document.querySelector('#arjs-video').style.display ='none';
+                           document.querySelector('model-viewer').src = `assets/models/${loaded}.glb`;
                            document.querySelector('.viewer').style.display ='block';
                        }
                     });
                 document
                     .querySelector(".return-button")
                     .addEventListener("click", function () {
-
                            document.querySelector('.viewer').style.display ='none';
                            document.querySelector('a-scene').style.display ='block';
                            document.querySelector('#arjs-video').style.display ='block';
@@ -108,9 +108,9 @@
     <div class="arjs-loader">
         <div>Loading, please wait...</div>
     </div>
-    <div style="display: none" class="viewer">
+    <div style="display: none;" class="viewer">
 
-        <model-viewer style="width: 100%;height: 100vh; margin-top: 200px" camera-controls alt="A 3D model of an earth" src="assets/models/earth.glb">
+        <model-viewer style="width: 100%;height: 100vh; margin-top: 200px" camera-controls alt="A 3D model of an cl" src="assets/models/cl.glb">
         </model-viewer>
         <div class="Mbuttons">
             <button class="return-button">Return Back</button>
@@ -127,8 +127,8 @@
         >
             <a-assets class="assists">
                 <a-asset-item
-                    id="earth-asset"
-                    src="assets/models/earth.glb"
+                    id="cl-asset"
+                    src="assets/models/cl.glb"
                 ></a-asset-item>
                 <a-asset-item
                     id="na-asset"
@@ -138,11 +138,15 @@
                     id="h-asset"
                     src="assets/models/h.gltf"
                 ></a-asset-item>
+                <a-asset-item
+                    id="earth-asset"
+                    src="assets/models/earth.glb"
+                ></a-asset-item>
             </a-assets>
 
 
             <a-marker
-                id="earth-marker"
+                id="cl-marker"
                 type="pattern"
                 preset="custom"
                 url="assets/markers/pattern/cl.patt"
@@ -153,10 +157,10 @@
 
             >
                 <a-entity
-                    id="earth-model"
+                    id="cl-model"
                     scale="0.6245663046653928 0.6245663046653928 0.6245663046653928"
                     animation-mixer="loop: repeat"
-                    gltf-model="#earth-asset"
+                    gltf-model="#cl-asset"
                     class="clickable"
                     gesture-handler
                 ></a-entity>
@@ -194,6 +198,24 @@
                     scale="0.25 0.25 0.25"
                     animation-mixer="loop: repeat"
                     gltf-model="#h-asset"
+                    class="clickable"
+                    gesture-handler
+                ></a-entity>
+            </a-marker>
+            <a-marker
+                id="earth-marker"
+                type="pattern"
+                preset="custom"
+                url="assets/markers/pattern/earth.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+                <a-entity
+                    id="earth-model"
+                    scale="0.25 0.25 0.25"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#earth-asset"
                     class="clickable"
                     gesture-handler
                 ></a-entity>
