@@ -7,6 +7,8 @@
         <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+        <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
         <script src="index.js"></script>
         <script type="text/javascript" src="assets/lib/jquery.min.1.7.js"></script>
 
@@ -24,13 +26,24 @@
                     document.querySelector('.buttons').style.display = 'none';
                 });
                 document
-                    .querySelector(".say-hi-button")
+                    .querySelector(".viewer-button")
                     .addEventListener("click", function () {
                        if(!loaded){
                            this.classList.add("disabled");
                        }else {
-                           window.open(`modelViewer-${loaded}.html`,"_self");
+                           document.querySelector('a-scene').style.display ='none';
+                           document.querySelector('#arjs-video').style.display ='none';
+                           document.querySelector('.viewer').style.display ='block';
                        }
+                    });
+                document
+                    .querySelector(".return-button")
+                    .addEventListener("click", function () {
+
+                           document.querySelector('.viewer').style.display ='none';
+                           document.querySelector('a-scene').style.display ='block';
+                           document.querySelector('#arjs-video').style.display ='block';
+
                     });
             };
         </script>
@@ -50,8 +63,23 @@
                 transition-duration: 250ms;
                 transition-timing-function: ease-in-out;
             }
+            .Mbuttons {
+                display: flex;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 5em;
+                justify-content: center;
+                align-items: center;
+                z-index: 10;
+                animation: ease-in-out;
+                transition-property: all;
+                transition-duration: 250ms;
+                transition-timing-function: ease-in-out;
+            }
 
-            .say-hi-button {
+            .viewer-button {
                 padding: 0.25em;
                 border-radius: 4px;
                 border: none;
@@ -60,15 +88,33 @@
                 width: 8em;
                 height: 3em;
             }
+            .return-button {
+                padding: 0.25em;
+                border-radius: 4px;
+                border: none;
+                background: black;
+                color: white;
+                width: 8em;
+                height: 3em;
+            }
+
         </style>
     </head>
 
     <body style="margin: 0; overflow: hidden;">
     <div class="buttons ">
-        <button class="say-hi-button">View Model</button>
+        <button class="viewer-button">View Model</button>
     </div>
     <div class="arjs-loader">
         <div>Loading, please wait...</div>
+    </div>
+    <div style="display: none" class="viewer">
+
+        <model-viewer style="width: 100%;height: 100vh; margin-top: 200px" camera-controls alt="A 3D model of an earth" src="assets/models/earth.glb">
+        </model-viewer>
+        <div class="Mbuttons">
+            <button class="return-button">Return Back</button>
+        </div>
     </div>
         <a-scene
             vr-mode-ui="enabled: false;"
