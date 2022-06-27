@@ -38,8 +38,9 @@
                         const model = avaliableModels(iterator1.next().value+ iterator1.next().value);
                         if (model) {
                             const iterator2 = loadedModels.values();
-                            document.querySelector(`#${iterator2.next().value}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.gltf');
-                            document.querySelector(`#${iterator2.next().value}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.gltf');
+                            loaded = model;
+                            document.querySelector(`#${iterator2.next().value}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.glb');
+                            document.querySelector(`#${iterator2.next().value}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.glb');
                             reaction += 2;
                         }
                     }
