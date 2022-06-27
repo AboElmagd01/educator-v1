@@ -1,5 +1,11 @@
 
-const loadedModels= []
+let loadedModels= new Set();
+const avaliableModels = ((model) => {
+    if (model === 'clna'||model === 'nacl') {
+        return 'nacl';
+    }else
+        return null;
+});
 // 1.0.0
 // fetch('./data.json')
 //     .then(response => response.json())

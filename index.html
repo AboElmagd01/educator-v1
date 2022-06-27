@@ -26,12 +26,32 @@
             }
 
             let loaded;
+            let reaction=0;
             window.onload = function () {
                 document.querySelector('a-scene').addEventListener('markerFound', (evt)=>{
                     loaded = evt.target.id.toString().split('-')[0];
+                    loadedModels.add(loaded);
                     document.querySelector('.buttons').style.display = 'flex';
+                    console.log(loadedModels);
+                    if (loadedModels.size === 2) {
+                        const iterator1 = loadedModels.values();
+                        const model = avaliableModels(iterator1.next().value+ iterator1.next().value);
+                        if (model) {
+                            const iterator2 = loadedModels.values();
+                            document.querySelector(`#${iterator2.next().value}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.gltf');
+                            document.querySelector(`#${iterator2.next().value}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.gltf');
+                            reaction += 2;
+                        }
+                    }
                 });
                 document.querySelector('a-scene').addEventListener('markerLost', (evt)=>{
+                    if(reaction>0){
+                        loadedModels.clear();
+                        let x = evt.target.id.toString().split('-')[0];
+                        document.querySelector(`#${x}-model`).setAttribute('gltf-model', '/assets/models/' + x + '.glb');
+                        reaction--;
+                    }
+                    loadedModels.delete(evt.target.id.toString().split('-')[0]);
                     loaded = null;
                     document.querySelector('.buttons').style.display = 'none';
                 });
@@ -119,7 +139,7 @@
     </div>
     <div style="display: none;" class="viewer">
 
-        <model-viewer style="width: 100%;height: 100vh;" camera-controls alt="A 3D model of an cl" src="assets/models/cl.glb" >
+        <model-viewer style="width: 100%;height: 100vh;" camera-controls alt="A 3D model of an cl" src="assets/models/cl.glb" autoplay>
         </model-viewer>
         <div class="Mbuttons">
             <button class="return-button">Return Back</button>
@@ -141,7 +161,7 @@
                 ></a-asset-item>
                 <a-asset-item
                     id="na-asset"
-                    src="assets/models/na.gltf"
+                    src="assets/models/na.glb"
                 ></a-asset-item>
                 <a-asset-item
                     id="h-asset"
@@ -151,6 +171,14 @@
                     id="earth-asset"
                     src="assets/models/earth.glb"
                 ></a-asset-item>
+                <a-asset-item
+                    id="uranus-asset"
+                    src="assets/models/uranus.glb"
+                ></a-asset-item>
+<!--                <a-asset-item-->
+<!--                    id="solar-asset"-->
+<!--                    src="assets/models/solar.glb"-->
+<!--                ></a-asset-item>-->
             </a-assets>
 
 
@@ -229,6 +257,42 @@
                     gesture-handler
                 ></a-entity>
             </a-marker>
+            <a-marker
+                id="uranus-marker"
+                type="pattern"
+                preset="custom"
+                url="assets/markers/pattern/uranus.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+                <a-entity
+                    id="uranus-model"
+                    scale="0.55 0.55 0.55"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#uranus-asset"
+                    class="clickable"
+                    gesture-handler
+                ></a-entity>
+            </a-marker>
+<!--            <a-marker-->
+<!--                id="solar-marker"-->
+<!--                type="pattern"-->
+<!--                preset="custom"-->
+<!--                url="assets/markers/pattern/solar.patt"-->
+<!--                raycaster="objects: .clickable"-->
+<!--                emitevents="true"-->
+<!--                cursor="fuse: false; rayOrigin: mouse;"-->
+<!--            >-->
+<!--                <a-entity-->
+<!--                    id="uranus-model"-->
+<!--                    scale="0.55 0.55 0.55"-->
+<!--                    animation-mixer="loop: repeat"-->
+<!--                    gltf-model="#solar-asset"-->
+<!--                    class="clickable"-->
+<!--                    gesture-handler-->
+<!--                ></a-entity>-->
+<!--            </a-marker>-->
 
 
             <a-entity camera></a-entity>
