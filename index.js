@@ -22,7 +22,6 @@ OrbitLength = [2,3,4,5]
 orbitSize= [2,8,8,8]
 
 const generateEntity = ((model) => {
-
     atomicNumber = getElectronsNumber[model];
     const scene = document.querySelector('a-scene');
     scale="0.25 0.25 0.25"
@@ -64,7 +63,12 @@ const getOrbit = ((id, max) => {
     orbit.setAttribute('rotation', "90 0 0");
     orbit.setAttribute('scale', "0.98 0.98 0.75");
     for (let i = 0; i < max ; i++) {
-        orbit.appendChild(getElectron(electronPositions[id][i]));
+        if (id === 0 && i===0 ){
+            orbit.appendChild(getElectronsWithAnnotation(electronPositions[id][i]))
+        }else {
+            orbit.appendChild(getElectron(electronPositions[id][i]));
+        }
+
     }
     return orbit;
 });
@@ -76,4 +80,40 @@ const getElectron = ((position) => {
     electron.setAttribute('scale', "1 1 1.22");
 
     return electron;
+});
+const getElectronsWithAnnotation  = ((position) => {
+    const electron = document.createElement('a-sphere');
+    electron.setAttribute('radius', 0.11);
+    electron.setAttribute('color', "#a51d2d");
+    electron.setAttribute('position', position);
+    electron.setAttribute('scale', "1 1 1.22");
+    electron.appendChild(getAnnotation());
+    return electron;
+});
+
+const getAnnotation= (() => {
+    const annotation = document.createElement('a-entity');
+    const arrow = document.createElement('a-box');
+    arrow.setAttribute('position', "0.022 0.423 -1.351");
+    arrow.setAttribute('material', "color: #f6d32d");
+    arrow.setAttribute('geometry', "height: 1.04");
+    arrow.setAttribute('scale', "0.04 0.02 2.89");
+    arrow.setAttribute('rotation', "20 0 -0.24");
+    const triangle = document.createElement('a-triangle');
+    triangle.setAttribute('position', "0.02361 0.89273 -2.68543");
+    triangle.setAttribute('material', "color: #f6d32d");
+    triangle.setAttribute('scale', "0.39 0.26 4.21");
+    triangle.setAttribute('rotation', "0 90 180");
+    console.log(triangle);
+
+    const text = document.createElement('a-entity');
+    text.setAttribute('text-geometry',"value: Electron (e -ve ); bevelSize: 7.77; bevelThickness: 12.46; curveSegments: 12.76; height: 0.08; size: 0.4; weight: bold");
+    text.setAttribute('material',"color: #f9f06b");
+    text.setAttribute('rotation', "0 0 90");
+    text.setAttribute('scale', "1 1 0.18");
+    text.setAttribute('position', "-1.08582 -2.89689 -0.008");
+    triangle.appendChild(text);
+    annotation.appendChild(arrow);
+    annotation.appendChild(triangle);
+    return annotation;
 });
