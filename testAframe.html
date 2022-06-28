@@ -1,0 +1,119 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <script src="assets/lib/js/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script>
+</head>
+<body>
+<!--<a-scene>-->
+<!--    <a-sphere position="-0.17817 2.01979 -5" radius="1.25" color="#EF2D5E" material="color: #1a5fb4" geometry="radius: 0.76; thetaLength: 174.84"></a-sphere>-->
+
+<!--    <a-torus color="#43A367" arc="270" radius="5" radius-tubular="0.1" material="color: #ffffff; metalness: 0.43; roughness: 1" geometry="arc: 360; radius: 4.09; radiusTubular: 0; segmentsRadial: 35; segmentsTubular: 31" rotation="90 0 0"></a-torus>-->
+<!--</a-scene>-->
+<a-scene >
+    <a-entity>
+    <a-sphere   position="-0.16812 2.25071 -6.41163" radius="1.25" color="#1913cf" geometry="radius: 0.76; thetaLength: 174.84">
+        <a-entity position="-0.180 -0.16 0.8"  text-geometry="value: Ar; bevelSize: 7.77; bevelThickness: 12.46; curveSegments: 12.76; height: 0.08; size: 0.4; weight: bold" material=""></a-entity>
+    </a-sphere>
+    <a-torus animation="property: rotation; to: 90 0 180; loop: true; dur: 3000;easing: linear" position="-0.23869 2.24314 -6.275" color="#43A367" arc="360" radius="2" radius-tubular="0.1" material="color: #ffffff; metalness: 0.43; roughness: 1;"  geometry="radiusTubular: 0.02;" rotation="90 0 0" scale="0.98 0.98 0.75">
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="-1.99 0 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="1.99 0 0" scale="1 1 1.22"></a-sphere>
+    </a-torus>
+    <a-torus animation="property: rotation; to: 90 0 180; loop: true; dur: 5000;easing: linear"  position="-0.23869 2.24314 -6.275" color="#43A367" arc="360" radius="3" radius-tubular="0.1" material="color: #ffffff; metalness: 0.43; roughness: 1;" geometry="radiusTubular: 0.02;" rotation="90 0 0" scale="0.98 0.98 0.75">
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="-2.99 0 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="2.99 0 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="0 2.99 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="0 -2.99 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="-2.22 -1.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="-2.22 1.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="2.22 1.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="2.22 -1.94 0" scale="1 1 1.22"></a-sphere>
+    </a-torus>
+    <a-torus  animation="property: rotation; to: 90 0 180; loop: true; dur: 7000;easing: linear"  position="-0.23869 2.24314 -6.275" color="#43A367" arc="360" radius="4" radius-tubular="0.1" material="color: #ffffff; metalness: 0.43; roughness: 1;" geometry="radiusTubular: 0.02;" rotation="90 0 0" scale="0.98 0.98 0.75">
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="-3.99 0 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="3.99 0 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="0 3.99 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="0 -3.99 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="-2.69 -2.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="-2.69 2.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="2.69 2.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.16" position="2.69 -2.94 0" scale="1 1 1.22"></a-sphere>
+    </a-torus>
+    </a-entity>
+</a-scene>
+<a-entity
+        id="cl-model"
+        scale="0.25 0.25 0.25"
+        animation-mixer="loop: repeat"
+        class="clickable"
+        gesture-handler>
+    <a-sphere   radius="1.25" color="#1913cf" geometry="radius: 0.76;">
+        <a-entity position="-0.180 -0.16 0.8" text-geometry="value: Ar; bevelSize: 7.77; bevelThickness: 12.46; curveSegments: 12.76; height: 0.08; size: 0.4; weight: bold" material=""></a-entity>
+
+    </a-sphere>
+
+    <a-torus animation="property: rotation; to: 90 0 180; loop: true; dur: 3000;easing: linear" color="#43A367" arc="360" radius="2" radius-tubular="0.1" material="color: #ffffff; metalness: 0.01; roughness: 1;"  geometry="radiusTubular: 0.01;" rotation="90 0 0" scale="0.98 0.98 0.75">
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="-1.99 0 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="1.99 0 0" scale="1 1 1.22"></a-sphere>
+    </a-torus>
+    <a-torus animation="property: rotation; to: 90 0 180; loop: true; dur: 5000;easing: linear"   color="#43A367" arc="360" radius="3" radius-tubular="0.1" material="color: #ffffff; metalness: 0.01; roughness: 1;" geometry="radiusTubular: 0.01;" rotation="90 0 0" scale="0.98 0.98 0.75">
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="-2.99 0 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="2.99 0 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="0 2.99 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="0 -2.99 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="-2.22 -1.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="-2.22 1.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="2.22 1.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="2.22 -1.94 0" scale="1 1 1.22"></a-sphere>
+    </a-torus>
+    <a-torus  animation="property: rotation; to: 90 0 180; loop: true; dur: 7000;easing: linear"  color="#43A367" arc="360" radius="4" radius-tubular="0.1" material="color: #ffffff; metalness: 0.01; roughness: 1;" geometry="radiusTubular: 0.01;" rotation="90 0 0" scale="0.98 0.98 0.75">
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="-3.99 0 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="3.99 0 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="0 3.99 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="0 -3.99 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="-2.69 -2.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="-2.69 2.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="2.69 2.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="2.69 -2.94 0" scale="1 1 1.22"></a-sphere>
+    </a-torus>
+</a-entity>
+<a-entity
+        id="cl-model"
+        scale="0.25 0.25 0.25"
+        animation-mixer="loop: repeat"
+        class="clickable"
+        gesture-handler>
+    <a-sphere   radius="1.25" color="#1913cf" geometry="radius: 0.76;">
+        <a-entity position="-0.180 -0.16 0.8" text-geometry="value: Ar; bevelSize: 7.77; bevelThickness: 12.46; curveSegments: 12.76; height: 0.08; size: 0.4; weight: bold" material=""></a-entity>
+
+    </a-sphere>
+
+    <a-torus animation="property: rotation; to: 90 0 180; loop: true; dur: 3000;easing: linear" color="#43A367" arc="360" radius="2" radius-tubular="0.1" material="color: #ffffff; metalness: 0.01; roughness: 1;"  geometry="radiusTubular: 0.01;" rotation="90 0 0" scale="0.98 0.98 0.75">
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="-1.99 0 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="1.99 0 0" scale="1 1 1.22"></a-sphere>
+    </a-torus>
+    <a-torus animation="property: rotation; to: 90 0 180; loop: true; dur: 5000;easing: linear"   color="#43A367" arc="360" radius="3" radius-tubular="0.1" material="color: #ffffff; metalness: 0.01; roughness: 1;" geometry="radiusTubular: 0.01;" rotation="90 0 0" scale="0.98 0.98 0.75">
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="-2.99 0 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="2.99 0 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="0 2.99 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="0 -2.99 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="-2.22 -1.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="-2.22 1.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="2.22 1.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="2.22 -1.94 0" scale="1 1 1.22"></a-sphere>
+    </a-torus>
+    <a-torus  animation="property: rotation; to: 90 0 180; loop: true; dur: 7000;easing: linear"  color="#43A367" arc="360" radius="4" radius-tubular="0.1" material="color: #ffffff; metalness: 0.01; roughness: 1;" geometry="radiusTubular: 0.01;" rotation="90 0 0" scale="0.98 0.98 0.75">
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="-3.99 0 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="3.99 0 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="0 3.99 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="0 -3.99 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="-2.69 -2.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="-2.69 2.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="2.69 2.94 0" scale="1 1 1.22"></a-sphere>
+        <a-sphere material="color: #a51d2d; " geometry="radius: 0.11" position="2.69 -2.94 0" scale="1 1 1.22"></a-sphere>
+    </a-torus>
+</a-entity>
+
+</body>
+</html>
+
+
