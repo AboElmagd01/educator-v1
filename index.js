@@ -29,14 +29,12 @@ orbitSize= [2,8,8,8]
 
 const generateEntity = ((model) => {
     atomicNumber = getElectronsNumber[model];
-    const scene = document.querySelector('a-scene');
-    scale="0.25 0.25 0.25"
     const molecule = document.createElement('a-entity');
     molecule.setAttribute('id', model[0].toLowerCase()+model.slice(1)+'-model');
     molecule.setAttribute('class', 'clickable');
     molecule.setAttribute('animation-mixer', 'loop: repeat');
     molecule.setAttribute('gesture-handler', '');
-    molecule.setAttribute('scale', '0.25 0.25 0.25');
+    molecule.setAttribute('scale', '0.14 0.14 0.14');
     molecule.appendChild(getAtom(model));
     let level =0;
     while (atomicNumber > 0) {
