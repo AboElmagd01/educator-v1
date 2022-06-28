@@ -33,8 +33,10 @@
                             let m2 = iterator2.next().value;
                             document.querySelector(`#${m1}-model`).innerHTML='';
                             document.querySelector(`#${m2}-model`).innerHTML='';
-                            document.querySelector(`#${m1}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.glb');
-                            document.querySelector(`#${m2}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.glb');
+                            document.querySelector(`#${m1}-model`).appendChild(getMixtureModel(m1[0].toUpperCase()+m1.slice(1),m2[0].toUpperCase()+m2.slice(1)));
+                            // document.querySelector(`#${m1}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.glb');
+                            // document.querySelector(`#${m2}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.glb');
+
                             reaction += 2;
 
                         }
