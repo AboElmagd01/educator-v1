@@ -2,8 +2,12 @@ let loadedModels= new Set();
 const avaliableModels = ((model) => {
     if (model === 'clna'||model === 'nacl') {
         return 'nacl';
-    }else
-        return null;
+    }else if (model==="hcl" || model ==="clh") {
+        return 'hcl';
+    }else if (model==="ho" || model ==="oh"){
+        return "ho";
+    }
+    return null;
 });
 
 getElectronsNumber = {
