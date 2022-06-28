@@ -128,12 +128,12 @@ const getAnnotation= (() => {
 const getMixtureModel = ((model1,model2) => {
     const m1= generateEntity(model1)
     const m2= generateEntity(model2)
-    m1.setAttribute('position', '4 0 0');
-    m2.setAttribute('position', '-4 0 0');
+    m1.setAttribute('position', '7 0 0');
+    m2.setAttribute('position', '-7 0 0');
     m1.setAttribute('scale', '0.6 0.6 0.6');
     m2.setAttribute('scale', '0.6 0.6 0.6');
-    m1.setAttribute('animation', "property: position; to: 1 0 0;; dur: 2000; easing: linear")
-    m2.setAttribute('animation', "property: position; to: -1 0 0;; dur: 2000; easing: linear")
+    m1.setAttribute('animation', "property: position; to: 3 0 0;; dur: 2000; easing: linear")
+    m2.setAttribute('animation', "property: position; to: -2 0 0;; dur: 2000; easing: linear")
     // Adjust based on Mass number
     m1.querySelector('.atom').setAttribute('animation', "property: position; to:-2 0 0; dur: 6000; easing: easeInExpo")
     m2.querySelector('.atom').setAttribute('animation', "property: position; to:4.2 0 0; dur: 6000; easing: easeInExpo")
