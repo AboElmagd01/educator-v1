@@ -49,8 +49,8 @@ const generateEntity = ((model) => {
 
 const getAtom = ((model) => {
     const text = document.createElement('a-entity');
-    text.object3D.position.set(-0.180, -0.16, 1.25);
-    text.setAttribute('text-geometry',"value: "+ model + "; bevelSize: 7.77; bevelThickness: 12.46; curveSegments: 12.76; height: 0.08; size: 0.6; weight: bold");
+    text.object3D.position.set(-0.180, -0.16, 1.4);
+    text.setAttribute('text-geometry',"value: "+ model + "; bevelSize: 7.77; bevelThickness: 12.46; curveSegments: 12.76; height: 0.08; size: 0.8; weight: bold");
     text.setAttribute('material',"");
     const atom = document.createElement('a-sphere');
     let radius = 1 + getMassNumber[model]/100;
@@ -130,6 +130,8 @@ const getMixtureModel = ((model1,model2) => {
     const m2= generateEntity(model2)
     m1.setAttribute('position', '4 0 0');
     m2.setAttribute('position', '-4 0 0');
+    m1.setAttribute('scale', '0.6 0.6 0.6');
+    m2.setAttribute('scale', '0.6 0.6 0.6');
     m1.setAttribute('animation', "property: position; to: 1 0 0;; dur: 2000; easing: linear")
     m2.setAttribute('animation', "property: position; to: -1 0 0;; dur: 2000; easing: linear")
     // Adjust based on Mass number
