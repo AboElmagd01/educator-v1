@@ -13,45 +13,59 @@
 
 
         <script>
-            let history = [];
             let loaded;
             let reaction=0;
             window.onload = function () {
+                let barcodeCounter=200;
+                for (let atom in getElectronsNumber){
+                    const marker = document.createElement('a-marker');
+                    marker.setAttribute('id', atom+"-marker");
+                    marker.setAttribute('type', 'barcode');
+                    marker.setAttribute('value', barcodeCounter); barcodeCounter++;
+                    marker.setAttribute('raycaster', 'objects: .clickable');
+                    marker.setAttribute('emitevents', 'true');
+                    marker.setAttribute('cursor', 'fuse: false; rayOrigin: mouse;');
+                    document.querySelector('a-scene').appendChild(marker);
+                }
                 document.querySelector('a-scene').addEventListener('markerFound', (evt)=>{
                     loaded = evt.target.id.toString().split('-')[0];
-                    loadedModels.add(loaded);
+                    loadedModels.push(loaded);
+                    console.log(loadedModels);
                     if (document.querySelector('#'+loaded +'-marker').innerHTML===""){
                         document.querySelector('#'+loaded +'-marker').appendChild(generateEntity(loaded[0].toUpperCase()+loaded.slice(1)));
                     }
                     document.querySelector('.buttons').style.display = 'flex';
-                    if (loadedModels.size === 2) {
-                        const iterator1 = loadedModels.values();
-                        const model = avaliableModels(iterator1.next().value+ iterator1.next().value);
+                    if (loadedModels.length === 2) {
+                        const iterator2 = loadedModels.values();
+                        let m1 = iterator2.next().value;
+                        let m2 = iterator2.next().value;
+                        const model = avaliableModels(m1+ m2);
                         if (model) {
-                            const iterator2 = loadedModels.values();
                             loaded = model;
-                            let m1 = iterator2.next().value;
-                            let m2 = iterator2.next().value;
                             document.querySelector(`#${m1}-model`).innerHTML='';
                             document.querySelector(`#${m2}-model`).innerHTML='';
-                            document.querySelector(`#${m1}-model`).appendChild(getMixtureModel(m1[0].toUpperCase()+m1.slice(1),m2[0].toUpperCase()+m2.slice(1)));
-                            // document.querySelector(`#${m1}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.glb');
-                            // document.querySelector(`#${m2}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.glb');
-
+                            if(model === 'nacl'){
+                                document.querySelector(`#${m1}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.glb');
+                                document.querySelector(`#${m2}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.glb');
+                            }else {
+                                document.querySelector(`#${m1}-model`).appendChild(getMixtureModel(m1[0].toUpperCase() + m1.slice(1), m2[0].toUpperCase() + m2.slice(1)));
+                            }
                             reaction += 2;
-
                         }
                     }
                 });
                 document.querySelector('a-scene').addEventListener('markerLost', (evt)=>{
                     if(reaction>0){
-                        loadedModels.clear();
+                        loadedModels= []
                         let x = evt.target.id.toString().split('-')[0];
                         console.log("removing "+x);
                         document.querySelector(`#${x}-marker`).innerHTML='';
                         reaction--;
                     }
-                    loadedModels.delete(evt.target.id.toString().split('-')[0]);
+                    let index =loadedModels.indexOf(evt.target.id.toString().split('-')[0]);
+                    if (index > -1) {
+                        loadedModels.splice(index, 1);
+                    }
                     loaded = null;
                     document.querySelector('.buttons').style.display = 'none';
                 });
@@ -150,62 +164,25 @@
             vr-mode-ui="enabled: false;"
             loading-screen="enabled: false;"
             renderer="logarithmicDepthBuffer: true;"
-            arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+            arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 4x4;"
             id="scene"
             embedded
             gesture-detector
-        ><a-marker
-                id="cl-marker"
-                type="pattern"
-                preset="custom"
-                url="assets/markers/pattern/cl.patt"
-                raycaster="objects: .clickable"
-                emitevents="true"
-                cursor="fuse: false; rayOrigin: mouse;"
-                id="markerA"
-            ></a-marker>
+        >
 
-            <a-marker
-                id="na-marker"
-                type="pattern"
-                preset="custom"
-                url="assets/markers/pattern/na.patt"
-                raycaster="objects: .clickable"
-                emitevents="true"
-                cursor="fuse: false; rayOrigin: mouse;"
-            ></a-marker>
-            <a-marker
-                id="h-marker"
-                type="pattern"
-                preset="custom"
-                url="assets/markers/pattern/h.patt"
-                raycaster="objects: .clickable"
-                emitevents="true"
-                cursor="fuse: false; rayOrigin: mouse;"
-            ></a-marker>
-            <a-marker
-                id="ca-marker"
-                type="pattern"
-                preset="custom"
-                url="assets/markers/pattern/ca.patt"
-                raycaster="objects: .clickable"
-                emitevents="true"
-                cursor="fuse: false; rayOrigin: mouse;"
-            ></a-marker>
-            <a-marker
-                id="o-marker"
-                type="pattern"
-                preset="custom"
-                url="assets/markers/pattern/o.patt"
-                raycaster="objects: .clickable"
-                emitevents="true"
-                cursor="fuse: false; rayOrigin: mouse;"
-            ></a-marker>
-
+<!--            <a-marker-->
+<!--                id="cl-marker"-->
+<!--                type="pattern"-->
+<!--                preset="custom"-->
+<!--                url="assets/markers/pattern/cl.patt"-->
+<!--                raycaster="objects: .clickable"-->
+<!--                emitevents="true"-->
+<!--                cursor="fuse: false; rayOrigin: mouse;"-->
+<!--            ></a-marker>-->
 
 
             <a-entity camera></a-entity>
 
-        </a-scene>
+        </>
     </body>
 </html>

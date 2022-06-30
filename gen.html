@@ -265,7 +265,7 @@
         imageName = imageName.substring(0, imageName.lastIndexOf('.')) || imageName
 
         // debugger
-
+        console.log(this)
         var reader = new FileReader();
         reader.onload = function(event){
             innerImageURL = event.target.result
@@ -303,6 +303,7 @@
             container.appendChild(fullMarkerImage)
         })
     }
+
 
     //////////////////////////////////////////////////////////////////////////////
     //		Handle PDF

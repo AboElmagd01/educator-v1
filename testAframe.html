@@ -5,29 +5,36 @@
     <script src="index.js"></script>
     <script>
         window.onload= function () {
-            const m1= generateEntity('Cl')
-            const m2= generateEntity('Na')
-            m1.setAttribute('position', '7 0 0');
-            m2.setAttribute('position', '-7 0 0');
-            m1.setAttribute('scale', '0.6 0.6 0.6');
-            m2.setAttribute('scale', '0.6 0.6 0.6');
-            m1.setAttribute('animation', "property: position; to: 3 0 0;; dur: 2000; easing: linear")
-            m2.setAttribute('animation', "property: position; to: -2 0 0;; dur: 2000; easing: linear")
-            // Adjust based on Mass number
-            m1.querySelector('.atom').setAttribute('animation', "property: position; to:-2 0 0; dur: 6000; easing: easeInExpo")
-            m2.querySelector('.atom').setAttribute('animation', "property: position; to:4.2 0 0; dur: 6000; easing: easeInExpo")
-            m1.querySelectorAll('a-torus').forEach(function(e){
-                e.setAttribute('animation', "property: rotation; to: 90 0 180; loop: true; dur: 5000; easing: linear")
-                e.setAttribute('animation__2', "property: visible; from: true; to: false; dur: 9999999999999999991")
-            })
-            m2.querySelectorAll('a-torus').forEach(function(e){
-                e.setAttribute('animation', "property: rotation; to: 90 0 180; loop: true; dur: 5000; easing: linear")
-                e.setAttribute('animation__2', "property: visible; from: true; to: false; dur: 9999999999999999991")
-            })
-            const model= document.createElement('a-entity')
-            model.appendChild(m1)
-            model.appendChild(m2)
-            document.querySelector('a-scene').appendChild(model)
+            // const m1= generateEntity('Cl')
+            // const m2= generateEntity('Na')
+            // m1.setAttribute('position', '7 0 0');
+            // m2.setAttribute('position', '-7 0 0');
+            // m1.setAttribute('scale', '0.6 0.6 0.6');
+            // m2.setAttribute('scale', '0.6 0.6 0.6');
+            // m1.setAttribute('animation', "property: position; to: 3 0 0;; dur: 2000; easing: linear")
+            // m2.setAttribute('animation', "property: position; to: -2 0 0;; dur: 2000; easing: linear")
+            // // Adjust based on Mass number
+            // m1.querySelector('.atom').setAttribute('animation', "property: position; to:-2 0 0; dur: 6000; easing: easeInExpo")
+            // const bond = document.createElement('a-cylinder');
+            // bond.setAttribute('material', "color: #1a5fb4");
+            // bond.setAttribute('geometry', "height: 2.59; radius: 0.15")
+            // bond.setAttribute('rotation', '0 0 90');
+            // bond.setAttribute('animation', "property: position; to:-2 0 0; dur: 7000; easing: easeInExpo")
+            // m1.querySelector('.atom').appendChild(bond);
+            // m2.querySelector('.atom').setAttribute('animation', "property: position; to:3.2 0 0; dur: 6000; easing: easeInExpo")
+            // m1.querySelectorAll('a-torus').forEach(function(e){
+            //     e.setAttribute('animation', "property: rotation; to: 90 0 180; loop: true; dur: 5000; easing: linear")
+            //     e.setAttribute('animation__2', "property: visible; from: true; to: false; dur: 9999999999999999991")
+            // })
+            // m2.querySelectorAll('a-torus').forEach(function(e){
+            //     e.setAttribute('animation', "property: rotation; to: 90 0 180; loop: true; dur: 5000; easing: linear")
+            //     e.setAttribute('animation__2', "property: visible; from: true; to: false; dur: 9999999999999999991")
+            // })
+            // const model= document.createElement('a-entity')
+            // model.appendChild(m1)
+            // model.appendChild(m2)
+            // document.querySelector('a-scene').appendChild(model)
+            document.querySelector('a-scene').appendChild( getTripleModel("H","H","O"))
         };
     </script>
 </head>
