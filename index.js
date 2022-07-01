@@ -1,14 +1,30 @@
 let loadedModels= [];
-const avaliableModels = ((model) => {
-    if (model === 'clna'||model === 'nacl') {
-        return 'nacl';
-    }else if (model==="hcl" || model ==="clh") {
-        return 'hcl';
-    }else if (model==="ho" || model ==="oh"){
-        return "ho";
+const getAvailable = ((m1,m2) => {
+    for (let available of availableModels ){
+        if(available === (m1 + m2) || available === (m2 + m1)){
+            return available;
+        }
     }
-    return null;
 });
+let availableModels = ['HO','HCL','SO','FeS','NaCl','TiO','SiO','MgO','KCl','CaCl','NaOH','MgCl','HS'];
+
+const getModel = (model) => {
+    switch (model) {
+      case 'HO':return getTripleModel('H','H','O')
+      case 'HCL': return   getMixtureModel('H','Cl')
+      case 'SO':  return getTripleModel('O','O','S')
+      case 'FeS': return getMixtureModel('Fe','S')
+      case 'NaCl':return  getMixtureModel('Na','Cl')
+      case 'TiO': return getTripleModel('O','O','Ti')
+      case 'SiO': return getTripleModel('O','O','Si')
+      case 'MgO': return  getMixtureModel('Mg','O')
+      case 'KCl': return  getMixtureModel('K','Cl')
+      case 'CaCl':return  getMixtureModel('Ca','Cl')
+      case 'NaOH':return  getMixtureModel('Na','OH')
+      case 'MgCl':return  getTripleModel('Cl','Cl','Mg')
+      case 'HS':  return getTripleModel('S','S','H')
+    }
+}
 
 getElectronsNumber = {
     'H': 1, 'He': 2, 'Li': 3, 'Be': 4, 'B': 5, 'C': 6, 'N': 7, 'O': 8, 'F': 9, 'Ne': 10, 'Na': 11, 'Mg': 12, 'Al': 13, 'Si': 14, 'P': 15, 'S': 16, 'Cl': 17, 'Ar': 18, 'K': 19, 'Ca': 20, 'Sc': 21, 'Ti': 22, 'V': 23, 'Cr': 24, 'Mn': 25, 'Fe': 26, 'Co': 27, 'Ni': 28, 'Cu': 29, 'Zn': 30, 'Ga': 31, 'Ge': 32, 'As': 33, 'Se': 34,
@@ -38,9 +54,9 @@ electronPositions = {
     1: ['-2.99 0 0', '2.99 0 0', '0 2.99 0', '0 -2.99 0', '-2.22 -1.94 0', '-2.22 1.94 0', '2.22 -1.94 0', '2.22 1.94 0'],
     2: ['-3.99 0 0', '3.99 0 0', '0 3.99 0', '0 -3.99 0', '-2.69 -2.94 0', '-2.69 2.94 0', '2.69 -2.94 0', '2.69 2.94 0', '3.619 -1.54 0', '3.619 1.54 0', '-3.619 -1.54 0', '-3.619 1.54 0', '-1.417 -3.74 0', '3.245 2.345 0', '-3.25 -2.38 0', '1.714 -3.60 0', '-1.416 3.703 0', '1.416 3.703 0', '-1.416 -3.703 0'],
     3: ['-4.99 0 0', '4.99 0 0', '0 4.99 0', '0 -4.99 0', '-4.056 -2.97 0', '-3.329 3.728 0', '3.63 -3.531 0', '2.793 4.08 0', '4.436 -2.27 0', '4.376 2.468 0', '-4.767 -1.64 0', '-4.4 2.195 0', '-1.907 -4.62 0', '3.626 3.406 0', '-3.188 -3.86 0', '1.774 -4.60 0', '-1.416 4.703 0', '1.416 4.703 0', '-1.416 -4.703 0'],
-    4: ['-5.99 0 0', '5.99 0 0', '0 5.99 0', '0 -5.99 0', '-4.396 -4.09 0', '-4.106 4.404 0', '4.278 -4.16 0', '4.245 4.24 0', '5.619 -3.54 0', '5.619 3.54 0', '-5.619 -3.54 0', '-5.619 3.54 0', '-3.417 -5.74 0', '3.245 4.345 0', '-3.25 -4.38 0', '1.714 -5.60 0', '-1.416 5.703 0', '1.416 5.703 0', '-1.416 -5.703 0'],
-    5: ['-6.99 0 0', '6.99 0 0', '0 6.99 0', '0 -6.99 0', '-5.619 -4.54 0', '-5.619 4.54 0', '5.619 -4.54 0', '5.619 4.54 0', '-4.417 -6.74 0', '4.245 5.345 0', '-4.25 -5.38 0', '1.714 -6.60 0', '-1.416 6.703 0', '1.416 6.703 0', '-1.416 -6.703 0'],
-    6: ['-7.99 0 0', '7.99 0 0', '0 7.99 0', '0 -7.99 0', '-6.619 -5.54 0', '-6.619 5.54 0', '6.619 -5.54 0', '6.619 5.54 0', '-5.417 -7.74 0', '5.245 6.345 0', '-5.25 -6.38 0', '1.714 -7.60 0', '-1.416 7.703 0', '1.416 7.703 0', '-1.416 -7.703 0'],
+    4: ['-5.99 0 0', '5.99 0 0', '0 5.99 0', '0 -5.99 0', '-4.396 -4.09 0', '-4.106 4.404 0', '4.278 -4.16 0', '4.245 4.24 0', '5.183 -2.97 0', '5.647 2.045 0', '-5.083 -3.21 0', '-5.677 2.078 0', '-2.903 -5.23 0', '2.998 5.215 0', '2.997 -5.17 0', '1.834 -5.73 0', '-1.5 5.803 0', '1.504 5.792 0'],
+    5: ['-6.99 0 0', '6.99 0 0', '0 6.99 0', '0 -6.99 0', '-5.418 -4.44 0', '-5.415 4.499 0', '5.347 -4.48 0', '5.352 4.544 0', '-6.208 -3.05 0', '4.245 5.345 0', '-4.25 -5.38 0', '1.714 -6.60 0', '-1.416 6.703 0', '1.416 6.703 0', '-1.416 -6.703 0'],
+    6: ['-7.99 0 0', '7.99 0 0', '0 7.99 0', '0 -7.99 0', '-6.101 -5.21 0', '-6.361 4.863 0', '6.230 -5.0 0', '6.262 4.97 0', '-5.417 -7.74 0', '5.245 6.345 0', '-5.25 -6.38 0', '1.714 -7.60 0', '-1.416 7.703 0', '1.416 7.703 0', '-1.416 -7.703 0'],
 }
 OrbitLength = [2,3,4,5,6,7,8]
 orbitSize= [2,8,8,8]
@@ -49,7 +65,7 @@ const generateEntity = ((model) => {
     atomicNumber = getElectronsNumber[model];
     let EnergyShells = getElectronDistribution[model];
     const molecule = document.createElement('a-entity');
-    molecule.setAttribute('id', model[0].toLowerCase()+model.slice(1)+'-model');
+    molecule.setAttribute('id', model+'-model');
     molecule.setAttribute('class', 'clickable');
     molecule.setAttribute('animation-mixer', 'loop: repeat');
     molecule.setAttribute('gesture-handler', '');
@@ -204,3 +220,12 @@ const getBondModel = ((position) => {
     bond.setAttribute('animation', "property: position; to:"+ position+" ; dur: 8000; easing: easeInExpo")
     return bond;
 })
+const getNoReactionModel = () => {
+    const text = document.createElement('a-entity');
+    text.setAttribute('id', 'noReaction');
+    text.object3D.position.set(-0.8, 1.600, 1.4);
+    text.setAttribute('text-geometry',"value: No Reaction ; bevelSize: 7.77; bevelThickness: 12.46; curveSegments: 12.76; height: 0.08; size: 0.2; weight: bold");
+    text.setAttribute('material',"");
+    text.setAttribute('rotation', '-90 0 0');
+    return text;
+}

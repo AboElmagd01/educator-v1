@@ -3,9 +3,17 @@
   <script src="assets/lib/js/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script>
   <script src="index.js"></script>
+  <script src="assets/lib/js/aframe-extras.loaders.min.js"></script>
+
   <script>
     window.onload= function () {
-      document.querySelector('a-scene').appendChild(generateEntity('Cs'))
+      const text = document.createElement('a-entity');
+      text.object3D.position.set(-0.8, 1.600, 1.4);
+      text.setAttribute('text-geometry',"value: No Reaction ; bevelSize: 7.77; bevelThickness: 12.46; curveSegments: 12.76; height: 0.08; size: 0.2; weight: bold");
+      text.setAttribute('material',"");
+      text.setAttribute('rotation', '-90 0 0');
+      document.querySelector('a-scene').appendChild(text)
+      document.querySelector('a-scene').appendChild(generateEntity('Og'))
     };
   </script>
 </head>

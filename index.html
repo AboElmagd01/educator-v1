@@ -39,17 +39,21 @@
                         const iterator2 = loadedModels.values();
                         let m1 = iterator2.next().value;
                         let m2 = iterator2.next().value;
-                        const model = avaliableModels(m1+ m2);
+                        const model = getAvailable(m1 , m2);
                         if (model) {
-                            loaded = model;
+                            // loaded = model;
                             document.querySelector(`#${m1}-model`).innerHTML='';
                             document.querySelector(`#${m2}-model`).innerHTML='';
-                            if(model === 'nacl'){
+                            if(model === 'NaCl'){
                                 document.querySelector(`#${m1}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.glb');
-                                document.querySelector(`#${m2}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.glb');
+                                document.querySelector(`#${m1}-model`).setAttribute('scale', '0.5 0.5 0.5');
                             }else {
-                                document.querySelector(`#${m1}-model`).appendChild(getMixtureModel(m1[0].toUpperCase() + m1.slice(1), m2[0].toUpperCase() + m2.slice(1)));
+                                document.querySelector(`#${m1}-model`).appendChild(getModel(model));
                             }
+                            reaction += 2;
+                        } else
+                        {
+                            document.querySelector(`#${m1}-marker`).appendChild(getNoReactionModel());
                             reaction += 2;
                         }
                     }
