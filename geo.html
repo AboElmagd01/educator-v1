@@ -1,0 +1,298 @@
+<!doctype html>
+<html>
+    <head>
+
+        <script src="assets/lib/js/aframe.min.js"></script>
+        <script src="assets/lib/js/aframe-ar.js"></script>
+        <script src="assets/lib/js/aframe-extras.loaders.min.js"></script>
+        <script src="assets/lib/js/gesture-detector.js"></script>
+        <script src="assets/lib/js/gesture-handler.js"></script>
+        <script type="module" src="assets/lib/js/model-viewer.min.js"></script>
+
+
+        <script>
+            let loadedModels = new Set();
+            let loaded;
+            let reaction=0;
+            window.onload = function () {
+                document.querySelector('a-scene').addEventListener('markerFound', (evt)=>{
+                    loaded = evt.target.id.toString().split('-')[0];
+                    loadedModels.add(loaded);
+                    document.querySelector('.buttons').style.display = 'flex';
+                    console.log(loadedModels);
+                });
+                document.querySelector('a-scene').addEventListener('markerLost', (evt)=>{
+                    loadedModels.delete(evt.target.id.toString().split('-')[0]);
+                    loaded = null;
+                    document.querySelector('.buttons').style.display = 'none';
+                });
+                document
+                    .querySelector(".viewer-button")
+                    .addEventListener("click", function () {
+                       if(!loaded){
+                           this.classList.add("disabled");
+                       }else {
+                           document.querySelector('a-scene').style.display ='none';
+                           document.querySelector('#arjs-video').style.display ='none';
+                           document.querySelector(`.${loaded}-view`).style.display = 'block';
+                           document.querySelector('.viewer').style.display ='block';
+                    }});
+                document
+                    .querySelector(".return-button")
+                    .addEventListener("click", function () {
+                           document.querySelector('.viewer').style.display ='none';
+                        for (let i = 0; i < document.querySelector('.viewer').children.length; i++) {
+                            document.querySelector('.viewer').children[i].style.display = 'none';
+                        }
+                        document.querySelector('a-scene').style.display ='block';
+                           document.querySelector('#arjs-video').style.display ='block';
+
+            });
+
+                document.querySelectorAll(".Hotspot").forEach(x => x.addEventListener("click", function () {
+                    if(this.querySelector(".contentAnnot").style.display === "") {
+                        this.querySelector(".contentAnnot").style.display = "none";
+                    }
+                    this.querySelector(".contentAnnot").style.display =  this.querySelector(".contentAnnot").style.display === "none"? "block" : "none";
+                }) );
+            };
+        </script>
+        <style>
+            .buttons {
+                display: none;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 5em;
+                justify-content: center;
+                align-items: center;
+                z-index: 10;
+                animation: ease-in-out;
+                transition-property: all;
+                transition-duration: 250ms;
+                transition-timing-function: ease-in-out;
+            }
+            .Mbuttons {
+                display: flex;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 5em;
+                justify-content: center;
+                align-items: center;
+                z-index: 10;
+                animation: ease-in-out;
+                transition-property: all;
+                transition-duration: 250ms;
+                transition-timing-function: ease-in-out;
+            }
+
+            .viewer-button {
+                padding: 0.25em;
+                border-radius: 4px;
+                border: none;
+                background: white;
+                color: black;
+                width: 8em;
+                height: 3em;
+            }
+            .return-button {
+                padding: 0.25em;
+                border-radius: 4px;
+                border: none;
+                background: black;
+                color: white;
+                width: 8em;
+                height: 3em;
+            }
+            .contentAnnot{
+                display: none;
+                width: 12rem;
+            }
+            /*.Hotspot{*/
+            /*    background-color: black;color: white;    border-radius: 10px;*/
+            /*}*/
+
+        </style>
+    </head>
+
+    <body style="margin: 0; overflow: hidden;">
+    <div class="buttons">
+        <button class="viewer-button">View Model</button>
+    </div>
+    <div style="display: none;" class="viewer">
+
+        <model-viewer class="earth-view" style="width: 100%;height: 100vh;display: none" bounds="tight" enable-pan src="assets/models/earth.glb" ar camera-controls environment-image="neutral" poster="assets/models/earth.webp" shadow-intensity="1" shadow-softness="1">
+            <button class="Hotspot" slot="hotspot-1" data-position="-0.058942082600471846m 0.09044909297517183m 1.3367062110067356m" data-normal="-0.1758293392279581m 0.2768617968083001m 0.9446859737154667m" data-visibility-attribute="visible">
+            <div  class="HotspotAnnotation">Inner Core
+                <p class="contentAnnot">Kedalaman: 6371 km Padat terdiri dari besi dan nikel</p>
+            </div>
+            </button><button class="Hotspot" slot="hotspot-2" data-position="-0.31673186583272767m 0.3372592021846292m 0.8716297147420413m" data-normal="0m -4.3711309460903194e-8m 0.999999999999999m" data-visibility-attribute="visible">
+            <div class="HotspotAnnotation">Outer Core
+                <p class="contentAnnot">Kedalaman : 5140 km Cair, terdiri dari besi dan nikel.</p>
+            </div>
+        </button><button class="Hotspot" slot="hotspot-3" data-position="-0.5343520335339216m 0.5350548990704117m 0.48868322338800646m" data-normal="0m -4.3711414488001317e-8m 0.9999999999999991m" data-visibility-attribute="visible">
+            <div class="HotspotAnnotation">Mantel
+                <p class="contentAnnot">Kedalaman: 2900 km Kental, terdiri dari lapisan Mesosfer, Astenosfer, dan sebagian litosfer.</p>
+            </div>
+        </button><button class="Hotspot" slot="hotspot-8" data-position="-0.04440031630720398m 0.0687051704125039m -0.98169171059729m" data-normal="-0.04905220395942151m 0.04873482883686177m -0.9976065345340142m" data-visibility-attribute="visible">
+            <div class="HotspotAnnotation">Crust (Kerak)
+                <p class="contentAnnot">Kedalaman: 200 km Padat, terdiri dari batuan. Terbagi menjadi Continental Crust (Kerak Benua) dan Oceanic Crust (Kerak Samudra). Bersama dengan Astenosfer bagian atas disebut Litosfer.</p>
+            </div>
+        </button><button class="Hotspot" slot="hotspot-9" data-position="1.775372417160874m 0.21810436164612235m 0.25905240716534994m" data-normal="0m -2.220446049250313e-16m 1m" data-visibility-attribute="visible">
+            <div class="HotspotAnnotation">Litosfer
+                <p class="contentAnnot">Terdiri dari Kerak Benua, Kerak Samudra, dan bagian atas astenosfer</p>
+            </div>
+        </button>
+            <div class="progress-bar hide" slot="progress-bar">
+                <div class="update-bar"></div>
+            </div>
+        </model-viewer>
+        <model-viewer class="fluorite-view" style="width: 100%;height: 100vh;display: none" bounds="tight" enable-pan src="assets/models/fluorite.glb" ar camera-controls environment-image="neutral" poster="assets/models/fluorite.webp" shadow-intensity="1" shadow-softness="1">
+            <button class="Hotspot" slot="hotspot-1" data-position="0.48337011296997723m 0.17346136584885852m -7.304353904346348m" data-normal="0.5739421205985069m 0.8029540474430891m 0.16079564638898247m" data-visibility-attribute="visible">
+                <div class="HotspotAnnotation">Fluorite
+                    <p class="contentAnnot">Chemical formula: CaF₂
+                        Mohs scale hardness: 4
+                        Category: Halide mineral
+                        Crystal habit: Well-formed coarse sized crystals
+                        Color: Colorless, although samples are often deeply colored owing to impurities; Purple, lilac, golden-yellow, green, blue, pink, champagne, brown.
+                        Luster: Vitreous
+                        Streak: White</p>
+                </div>
+            </button>
+            <div class="progress-bar hide" slot="progress-bar">
+                <div class="update-bar"></div>
+            </div>
+        </model-viewer>
+        <model-viewer class="aragonite-view" style="width: 100%;height: 100vh;display: none" bounds="tight" enable-pan src="assets/models/aragonite.glb" ar camera-controls environment-image="neutral" poster="assets/models/aragonite.webp" shadow-intensity="1" shadow-softness="1">
+            <button class="Hotspot" slot="hotspot-1" data-position="-0.8730267004055534m 0.46190424891899706m -7.9680983852578m" data-normal="-0.891534287551743m -0.20173280113491066m 0.4055496160346704m" data-visibility-attribute="visible">
+                <div class="HotspotAnnotation">Aragonite
+                    <p class="contentAnnot">Category: Carbonate mineral
+                        Formula: CaCO3
+                        Color: White, red, yellow, orange, green, purple, grey, blue and brown
+                        Crystal habit: Pseudohexagonal, prismatic crystals, acicular, columnar, globular, reniform, pisolitic, coralloidal, stalactitic, internally banded
+                        Mohs scale hardness: 3.5–4
+                        Luster: Vitreous, resinous on fracture surfaces
+                        Streak: White</p>
+                </div>
+            </button>
+            <div class="progress-bar hide" slot="progress-bar">
+                <div class="update-bar"></div>
+            </div>
+        </model-viewer>
+
+
+        <div class="Mbuttons">
+            <button class="return-button">Return Back</button>
+        </div>
+        </div>
+<!--    <div class="arjs-loader">-->
+<!--        <div>Loading, please wait...</div>-->
+<!--    </div>-->
+        <a-scene
+            vr-mode-ui="enabled: false;"
+            loading-screen="enabled: false;"
+            renderer="logarithmicDepthBuffer: true;"
+            arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+            id="scene"
+            embedded
+            gesture-detector
+        >
+            <a-assets class="assists">
+                <a-asset-item
+                    id="earth-asset"
+                    src="assets/models/earth.glb"
+                ></a-asset-item>
+                <a-asset-item
+                    id="fluorite-asset"
+                    src="assets/models/fluorite.glb"
+                ></a-asset-item>
+                <a-asset-item
+                    id="aragonite-asset"
+                    src="assets/models/aragonite.glb"
+                ></a-asset-item>
+            </a-assets>
+
+
+            <a-marker
+                id="earth-marker"
+                type="pattern"
+                preset="custom"
+                url="assets/markers/pattern/earth.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+                <a-entity
+                    id="earth-model"
+                    scale="0.5 0.5 0.5"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#earth-asset"
+                    class="clickable"
+                    gesture-handler
+                ></a-entity>
+            </a-marker>
+            <a-marker
+                id="fluorite-marker"
+                type="pattern"
+                preset="custom"
+                url="assets/markers/pattern/fluorite.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+                <a-entity
+                    id="fluorite-model"
+                    scale="7.660 7.660 5.460"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#fluorite-asset"
+                    class="clickable"
+                    gesture-handler
+                ></a-entity>
+            </a-marker>
+            <a-marker
+                id="aragonite-marker"
+                type="pattern"
+                preset="custom"
+                url="assets/markers/pattern/aragonite.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+                <a-entity
+                    id="aragonite-model"
+                    scale="1 1 1"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#aragonite-asset"
+                    class="clickable"
+                    gesture-handler
+                ></a-entity>
+            </a-marker>
+
+<!--            <a-marker-->
+<!--                id="solar-marker"-->
+<!--                type="pattern"-->
+<!--                preset="custom"-->
+<!--                url="assets/markers/pattern/solar.patt"-->
+<!--                raycaster="objects: .clickable"-->
+<!--                emitevents="true"-->
+<!--                cursor="fuse: false; rayOrigin: mouse;"-->
+<!--            >-->
+<!--                <a-entity-->
+<!--                    id="uranus-model"-->
+<!--                    scale="0.55 0.55 0.55"-->
+<!--                    animation-mixer="loop: repeat"-->
+<!--                    gltf-model="#solar-asset"-->
+<!--                    class="clickable"-->
+<!--                    gesture-handler-->
+<!--                ></a-entity>-->
+<!--            </a-marker>-->
+
+
+            <a-entity camera></a-entity>
+
+        </a-scene>
+    </body>
+</html>
