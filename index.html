@@ -32,7 +32,7 @@
                     loadedModels.push(loaded);
                     console.log(loadedModels);
                     if (document.querySelector('#'+loaded +'-marker').innerHTML===""){
-                        document.querySelector('#'+loaded +'-marker').appendChild(generateEntity(loaded[0].toUpperCase()+loaded.slice(1)));
+                        document.querySelector('#'+loaded +'-marker').appendChild(generateEntity(loaded));
                     }
                     document.querySelector('.buttons').style.display = 'flex';
                     if (loadedModels.length === 2) {
@@ -62,7 +62,6 @@
                     if(reaction>0){
                         loadedModels= []
                         let x = evt.target.id.toString().split('-')[0];
-                        console.log("removing "+x);
                         document.querySelector(`#${x}-marker`).innerHTML='';
                         reaction--;
                     }

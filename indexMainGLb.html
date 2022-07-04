@@ -21,27 +21,27 @@
                     loadedModels.add(loaded);
                     document.querySelector('.buttons').style.display = 'flex';
                     console.log(loadedModels);
-                    if (loadedModels.size === 2) {
-                        const iterator1 = loadedModels.values();
-                        const model = avaliableModels(iterator1.next().value+ iterator1.next().value);
-                        if (model) {
-                            const iterator2 = loadedModels.values();
-                            loaded = model;
-                            let m1 = iterator2.next().value;
-                            let m2 = iterator2.next().value;
-                            document.querySelector(`#${m1}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.glb');
-                            document.querySelector(`#${m2}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.glb');
-                            reaction += 2;
-                        }
-                    }
+                    // if (loadedModels.size === 2) {
+                    //     const iterator1 = loadedModels.values();
+                    //     const model = avaliableModels(iterator1.next().value+ iterator1.next().value);
+                    //     if (model) {
+                    //         const iterator2 = loadedModels.values();
+                    //         loaded = model;
+                    //         let m1 = iterator2.next().value;
+                    //         let m2 = iterator2.next().value;
+                    //         document.querySelector(`#${m1}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.glb');
+                    //         document.querySelector(`#${m2}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.glb');
+                    //         reaction += 2;
+                    //     }
+                    // }
                 });
                 document.querySelector('a-scene').addEventListener('markerLost', (evt)=>{
-                    if(reaction>0){
-                        loadedModels.clear();
-                        let x = evt.target.id.toString().split('-')[0];
-                        document.querySelector(`#${x}-model`).setAttribute('gltf-model', '/assets/models/' + x + '.glb');
-                        reaction--;
-                    }
+                    // if(reaction>0){
+                    //     loadedModels.clear();
+                    //     let x = evt.target.id.toString().split('-')[0];
+                    //     document.querySelector(`#${x}-model`).setAttribute('gltf-model', '/assets/models/' + x + '.glb');
+                    //     reaction--;
+                    // }
                     loadedModels.delete(evt.target.id.toString().split('-')[0]);
                     loaded = null;
                     document.querySelector('.buttons').style.display = 'none';
@@ -125,6 +125,14 @@
     <div class="buttons">
         <button class="viewer-button">View Model</button>
     </div>
+    <div style="display: none;" class="viewer">
+
+        <model-viewer style="width: 100%;height: 100vh;" camera-controls alt="A 3D model of an cl" src="assets/models/liver.glb" autoplay>
+        </model-viewer>
+        <div class="Mbuttons">
+            <button class="return-button">View Model</button>
+        </div>
+        </div>
     <div class="arjs-loader">
         <div>Loading, please wait...</div>
     </div>
@@ -139,18 +147,6 @@
         >
             <a-assets class="assists">
                 <a-asset-item
-                    id="cl-asset"
-                    src="assets/models/cl.glb"
-                ></a-asset-item>
-                <a-asset-item
-                    id="na-asset"
-                    src="assets/models/na.glb"
-                ></a-asset-item>
-                <a-asset-item
-                    id="h-asset"
-                    src="assets/models/h.gltf"
-                ></a-asset-item>
-                <a-asset-item
                     id="earth-asset"
                     src="assets/models/earth.glb"
                 ></a-asset-item>
@@ -158,70 +154,9 @@
                     id="uranus-asset"
                     src="assets/models/uranus.glb"
                 ></a-asset-item>
-<!--                <a-asset-item-->
-<!--                    id="solar-asset"-->
-<!--                    src="assets/models/solar.glb"-->
-<!--                ></a-asset-item>-->
             </a-assets>
 
 
-            <a-marker
-                id="cl-marker"
-                type="pattern"
-                preset="custom"
-                url="assets/markers/pattern/cl.patt"
-                raycaster="objects: .clickable"
-                emitevents="true"
-                cursor="fuse: false; rayOrigin: mouse;"
-                id="markerA"
-
-            >
-                <a-entity
-                    id="cl-model"
-                    scale="0.25 0.25 0.25"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#cl-asset"
-                    class="clickable"
-                    gesture-handler
-                ></a-entity>
-            </a-marker>
-
-            <a-marker
-                id="na-marker"
-                type="pattern"
-                preset="custom"
-                url="assets/markers/pattern/na.patt"
-                raycaster="objects: .clickable"
-                emitevents="true"
-                cursor="fuse: false; rayOrigin: mouse;"
-            >
-                <a-entity
-                    id="na-model"
-                    scale="0.25 0.25 0.25"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#na-asset"
-                    class="clickable"
-                    gesture-handler
-                ></a-entity>
-            </a-marker>
-            <a-marker
-                id="h-marker"
-                type="pattern"
-                preset="custom"
-                url="assets/markers/pattern/h.patt"
-                raycaster="objects: .clickable"
-                emitevents="true"
-                cursor="fuse: false; rayOrigin: mouse;"
-            >
-                <a-entity
-                    id="h-model"
-                    scale="0.25 0.25 0.25"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#h-asset"
-                    class="clickable"
-                    gesture-handler
-                ></a-entity>
-            </a-marker>
             <a-marker
                 id="earth-marker"
                 type="pattern"

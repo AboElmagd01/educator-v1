@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+    <head>
+
+        <script src="assets/lib/js/aframe.min.js"></script>
+        <script src="assets/lib/js/aframe-ar.js"></script>
+        <script src="assets/lib/js/aframe-extras.loaders.min.js"></script>
+        <script src="assets/lib/js/gesture-detector.js"></script>
+        <script src="assets/lib/js/gesture-handler.js"></script>
+        <script type="module" src="assets/lib/js/model-viewer.min.js"></script>
+
+
+        <script>
+            let loadedModels = new Set();
+            let loaded;
+            let reaction=0;
+            window.onload = function () {
+                document.querySelector('a-scene').addEventListener('markerFound', (evt)=>{
+                    loaded = evt.target.id.toString().split('-')[0];
+                    loadedModels.add(loaded);
+                    document.querySelector('.buttons').style.display = 'flex';
+                    console.log(loadedModels);
+                });
+                document.querySelector('a-scene').addEventListener('markerLost', (evt)=>{
+                    loadedModels.delete(evt.target.id.toString().split('-')[0]);
+                    loaded = null;
+                    document.querySelector('.buttons').style.display = 'none';
+                });
+                document
+                    .querySelector(".viewer-button")
+                    .addEventListener("click", function () {
+                       if(!loaded){
+                           this.classList.add("disabled");
+                       }else {
+                           document.querySelector('a-scene').style.display ='none';
+                           document.querySelector('#arjs-video').style.display ='none';
+                           document.querySelector('model-viewer').src = `assets/models/${loaded}.glb`;
+                           document.querySelector('.viewer').style.display ='block';
+                    }});
+                document
+                    .querySelector(".return-button")
+                    .addEventListener("click", function () {
+                           document.querySelector('.viewer').style.display ='none';
+                           document.querySelector('a-scene').style.display ='block';
+                           document.querySelector('#arjs-video').style.display ='block';
+
+            });
+
+                document.querySelectorAll(".Hotspot").forEach(x => x.addEventListener("click", function () {
+                    if(this.querySelector(".contentAnnot").style.display === "") {
+                        this.querySelector(".contentAnnot").style.display = "none";
+                    }
+                    this.querySelector(".contentAnnot").style.display =  this.querySelector(".contentAnnot").style.display === "none"? "block" : "none";
+                }) );
+            };
+        </script>
+        <style>
+            .buttons {
+                display: none;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 5em;
+                justify-content: center;
+                align-items: center;
+                z-index: 10;
+                animation: ease-in-out;
+                transition-property: all;
+                transition-duration: 250ms;
+                transition-timing-function: ease-in-out;
+            }
+            .Mbuttons {
+                display: flex;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 5em;
+                justify-content: center;
+                align-items: center;
+                z-index: 10;
+                animation: ease-in-out;
+                transition-property: all;
+                transition-duration: 250ms;
+                transition-timing-function: ease-in-out;
+            }
+
+            .viewer-button {
+                padding: 0.25em;
+                border-radius: 4px;
+                border: none;
+                background: white;
+                color: black;
+                width: 8em;
+                height: 3em;
+            }
+            .return-button {
+                padding: 0.25em;
+                border-radius: 4px;
+                border: none;
+                background: black;
+                color: white;
+                width: 8em;
+                height: 3em;
+            }
+            .contentAnnot{
+                display: none;
+                width: 12rem;
+            }
+
+        </style>
+    </head>
+
+    <body style="margin: 0; overflow: hidden;">
+    <div class="buttons">
+        <button class="viewer-button">View Model</button>
+    </div>
+    <div style="display: none;" class="viewer">
+
+        <model-viewer style="width: 100%;height: 100vh;" bounds="tight" enable-pan src="assets/models/liver.glb" ar camera-controls environment-image="neutral" poster="assets/models/liver.webp" shadow-intensity="1" shadow-softness="1">
+            <button  class="Hotspot" slot="hotspot-1" data-position="-0.3567142967410935m 0.09724344855786628m 0.23852108028919242m" data-normal="0.12711203778274516m 0.12746859034025199m 0.9836637069280268m" data-visibility-attribute="visible">
+                <div class="HotspotAnnotation">Lobus Kiri
+                    <p class="contentAnnot">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, facere magni nemo nostrum possimus reiciendis sint. Aliquid fugiat fugit libero nihil porro quisquam quos voluptatem.</p>
+                </div>
+            </button>
+            <button   class="Hotspot" slot="hotspot-3" data-position="-0.6243030752438248m 0.01749624814933466m 0.2621238479211997m" data-normal="-0.125960270709921m -0.01473859556999046m 0.9919257956134157m" data-visibility-attribute="visible">
+                <div  class="HotspotAnnotation">Lobus Kanan
+                    <p class="contentAnnot">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, facere magni nemo nostrum possimus reiciendis sint. Aliquid fugiat fugit libero nihil porro quisquam quos voluptatem.</p>
+                </div>
+            </button>
+            <button  class="Hotspot" slot="hotspot-4" data-position="-0.565337260810951m 0.043949132870304546m 0.13461060023762605m" data-normal="0.002666954832887262m 0.016297839252336188m -0.9998636245946867m" data-visibility-attribute="visible">
+                <div class="HotspotAnnotation">Saluran Empedu
+                    <p class="contentAnnot">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, facere magni nemo nostrum possimus reiciendis sint. Aliquid fugiat fugit libero nihil porro quisquam quos voluptatem.</p>
+                </div>
+            </button>
+            <div class="progress-bar hide" slot="progress-bar">
+                <div class="update-bar"></div>
+            </div>
+        </model-viewer>
+
+        <div class="Mbuttons">
+            <button class="return-button">Return Back</button>
+        </div>
+        </div>
+<!--    <div class="arjs-loader">-->
+<!--        <div>Loading, please wait...</div>-->
+<!--    </div>-->
+        <a-scene
+            vr-mode-ui="enabled: false;"
+            loading-screen="enabled: false;"
+            renderer="logarithmicDepthBuffer: true;"
+            arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+            id="scene"
+            embedded
+            gesture-detector
+        >
+            <a-assets class="assists">
+                <a-asset-item
+                    id="liver-asset"
+                    src="assets/models/liver.glb"
+                ></a-asset-item>
+            </a-assets>
+
+
+            <a-marker
+                id="liver-marker"
+                type="pattern"
+                preset="custom"
+                url="assets/markers/pattern/liver.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+                <a-entity
+                    id="liver-model"
+                    scale="1 1 1"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#liver-asset"
+                    class="clickable"
+                    gesture-handler
+                ></a-entity>
+            </a-marker>
+
+<!--            <a-marker-->
+<!--                id="solar-marker"-->
+<!--                type="pattern"-->
+<!--                preset="custom"-->
+<!--                url="assets/markers/pattern/solar.patt"-->
+<!--                raycaster="objects: .clickable"-->
+<!--                emitevents="true"-->
+<!--                cursor="fuse: false; rayOrigin: mouse;"-->
+<!--            >-->
+<!--                <a-entity-->
+<!--                    id="uranus-model"-->
+<!--                    scale="0.55 0.55 0.55"-->
+<!--                    animation-mixer="loop: repeat"-->
+<!--                    gltf-model="#solar-asset"-->
+<!--                    class="clickable"-->
+<!--                    gesture-handler-->
+<!--                ></a-entity>-->
+<!--            </a-marker>-->
+
+
+            <a-entity camera></a-entity>
+
+        </a-scene>
+    </body>
+</html>
