@@ -6,12 +6,12 @@ const getAvailable = ((m1,m2) => {
         }
     }
 });
-let availableModels = ['HO','HCL','SO','FeS','NaCl','TiO','SiO','MgO','KCl','CaCl','NaOH','MgCl','HS'];
+let availableModels = ['HO','HCl','SO','FeS','NaCl','TiO','SiO','MgO','KCl','CaCl','NaOH','MgCl','HS'];
 
 const getModel = (model) => {
     switch (model) {
       case 'HO':return getTripleModel('H','H','O')
-      case 'HCL': return   getMixtureModel('H','Cl')
+      case 'HCl': return   getMixtureModel('H','Cl')
       case 'SO':  return getTripleModel('O','O','S')
       case 'FeS': return getMixtureModel('Fe','S')
       case 'NaCl':return  getMixtureModel('Na','Cl')
