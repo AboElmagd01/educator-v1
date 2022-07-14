@@ -25,7 +25,7 @@
    ```
 2. run the app by uploading to a web server or on localhost:
     ```shell
-    /index.html -> Chemistry
-    /geo.html -> Geology
+    /chemistry.html -> Chemistry
+    /geology.html -> Geology
     /biology.html -> Biology
     ```
