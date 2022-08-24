@@ -189,7 +189,7 @@ const getMixtureModel = ((model1,model2) => {
 });
 
 const getTripleModel = ((model1,model2,model3) => {
-    const model=getMixtureModel(model1,model2);
+    const model= getMixtureModel(model1,model2);
     model.children[0].setAttribute('position', '10 0 0');
     model.children[1].setAttribute('position', '-10 0 0');
     model.children[0].setAttribute('animation', "property: position; to: 3 0 0;; dur: 2000; easing: linear");

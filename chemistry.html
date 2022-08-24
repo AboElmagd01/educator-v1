@@ -9,41 +9,46 @@
         <script src="assets/lib/js/gesture-detector.js"></script>
         <script src="assets/lib/js/gesture-handler.js"></script>
         <script type="module" src="assets/lib/js/model-viewer.min.js"></script>
-        <script src="index.js"></script>
-
+        <script src="models/Electron.js"></script>
+        <script src="models/Bond.js"></script>
+        <script src="models/Atom.js"></script>
+        <script src="models/Marker.js"></script>
+        <script src="models/Orbit.js"></script>
+        <script src="models/Molecule.js"></script>
+        <script src="chemistry.js" ></script>
 
         <script>
             let loaded;
             let reaction=0;
             window.onload = function () {
+                // Generate and Register Markers for All Elements
                 let barcodeCounter=200;
-                for (let atom in getElectronsNumber){
-                    const marker = document.createElement('a-marker');
-                    marker.setAttribute('id', atom+"-marker");
-                    marker.setAttribute('type', 'barcode');
-                    marker.setAttribute('value', barcodeCounter); barcodeCounter++;
-                    marker.setAttribute('raycaster', 'objects: .clickable');
-                    marker.setAttribute('emitevents', 'true');
-                    marker.setAttribute('cursor', 'fuse: false; rayOrigin: mouse;');
+                for (let atom in ElectronsNumber){
+                    const marker = new Marker(atom, barcodeCounter).get_entity();
                     document.querySelector('a-scene').appendChild(marker);
+                    barcodeCounter++;
                 }
+
                 document.querySelector('a-scene').addEventListener('markerFound', (evt)=>{
+                    // Display the loaded Element
                     loaded = evt.target.id.toString().split('-')[0];
                     loadedModels.push(loaded);
                     console.log(loadedModels);
                     if (document.querySelector('#'+loaded +'-marker').innerHTML===""){
-                        document.querySelector('#'+loaded +'-marker').appendChild(generateEntity(loaded));
+                        document.querySelector('#'+loaded +'-marker').appendChild(new Molecule(loaded).get_entity());
                     }
                     document.querySelector('.buttons').style.display = 'flex';
+
+                    // Display Compound
                     if (loadedModels.length === 2) {
                         const iterator2 = loadedModels.values();
                         let m1 = iterator2.next().value;
                         let m2 = iterator2.next().value;
                         const model = getAvailable(m1 , m2);
                         if (model) {
-                            // loaded = model;
                             document.querySelector(`#${m1}-model`).innerHTML='';
                             document.querySelector(`#${m2}-model`).innerHTML='';
+                            // For Custom Compound 3d models
                             if(model === 'NaCl'){
                                 document.querySelector(`#${m1}-model`).setAttribute('gltf-model', '/assets/models/' + model + '.glb');
                                 document.querySelector(`#${m1}-model`).setAttribute('scale', '0.5 0.5 0.5');
@@ -53,12 +58,14 @@
                             reaction += 2;
                         } else
                         {
-                            document.querySelector(`#${m1}-marker`).appendChild(getNoReactionModel());
+                            // Display No reaction if the elements isn't registered in available models
+                            document.querySelector(`#${m1}-marker`).appendChild(Bond.getNoReactionModel());
                             reaction += 2;
                         }
                     }
                 });
                 document.querySelector('a-scene').addEventListener('markerLost', (evt)=>{
+                    // Remove the Compound
                     if(reaction>0){
                         loadedModels= []
                         let x = evt.target.id.toString().split('-')[0];
@@ -72,6 +79,7 @@
                     loaded = null;
                     document.querySelector('.buttons').style.display = 'none';
                 });
+                // View The Model without the marker
                 document
                     .querySelector(".viewer-button")
                     .addEventListener("click", function () {
@@ -146,6 +154,8 @@
             }
 
         </style>
+        <script src="models/Annotation.js"></script>
+        <script src="models/Compound.js"></script>
     </head>
 
     <body style="margin: 0; overflow: hidden;">
