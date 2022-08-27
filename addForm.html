@@ -141,15 +141,24 @@
         <label for="name" class="placeholder">Model Name</label>
     </div>
     <div class="input-container ic1" >
+        <label for="pattern" style="cursor: pointer">
         <p style="color: #eeeeee">Pattern Use <a href="/generate" > this</a> to generate pattern file</p>
-        <input id="pattern"  name="pattern" class="input" type="file" placeholder=" " required />
-    </div>
-    <div style="padding-top: 20px" ></div>
-    <div class="input-container ic1" >
-        <p style="color: #eeeeee">Upload 3d Model</p>
-        <input id="model"  name="model" class="input" type="file" placeholder=" " required />
+            <div type="text" class="submit" style="background-color: #303245; margin-top: 10px; text-align: center;padding-top: 15px"> Upload</div>
+            <input id="pattern"  name="pattern" class="input" type="file" style="display:none;" placeholder=" " required />
+            <span style="color: white" id="patternImageName"></span>
+
+        </label>
     </div>
     <div style="padding-top: 30px" ></div>
+    <div class="input-container ic1" >
+        <label for="model">
+            <p style="color: #eeeeee">Upload 3d Model</p>
+            <div type="text" class="submit" style="background-color: #303245; margin-top: 10px; text-align: center;padding-top: 15px"> Upload</div>
+            <input id="model"  name="model" class="input" type="file" style="display: none" placeholder=" " required />
+            <span style="color: white" id="imageName"></span>
+        </label>
+    </div>
+    <div style="padding-top: 40px" ></div>
 
     <div class="input-container ic2">
         <input id="scale" name="scale" class="input" type="text" placeholder=" " required/>
@@ -158,3 +167,20 @@
     </div>
     <input type="submit" value="Submit" class="submit">
 </form>
+
+<script>
+    let pattern = document.getElementById("pattern");
+    let patternImageName = document.getElementById("patternImageName")
+    pattern.addEventListener("change", ()=>{
+        let inputImage = document.querySelector("input[type=file]").files[0];
+
+        patternImageName.innerText = inputImage.name;
+    })
+    let model = document.getElementById("model");
+    let imageName = document.getElementById("imageName")
+    model.addEventListener("change", ()=>{
+        let inputImage = document.querySelector("input[type=file]").files[0];
+
+        imageName.innerText = inputImage.name;
+    })
+</script>
