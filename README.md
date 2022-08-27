@@ -27,8 +27,8 @@
     ```shell
     /index.html
     ```
-3. For Adding a new Custom 3d Model Install [node][https://nodejs.org/en/] and install dependencies in package.json
-    ```javascript
+3. For Adding a new Custom 3d Model Install [node](https://nodejs.org/en/) and install dependencies in package.json
+    ```js
    npm install
    node add_custom_model.js             # Listening on port 8080 by default
    ```
