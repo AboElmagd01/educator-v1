@@ -1,0 +1,160 @@
+<head>
+    <style>
+        body {
+            align-items: center;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            height: 130vh;
+        }
+
+        .form {
+            background-color: #15172b;
+            border-radius: 20px;
+            box-sizing: border-box;
+            height: 700px;
+            padding: 20px;
+            width: 440px;
+        }
+
+        .title {
+            color: #eee;
+            font-family: sans-serif;
+            font-size: 36px;
+            font-weight: 600;
+            margin-top: 30px;
+        }
+
+        .subtitle {
+            color: #eee;
+            font-family: sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .input-container {
+            height: 50px;
+            position: relative;
+            width: 100%;
+        }
+
+        .ic1 {
+            margin-top: 40px;
+        }
+
+        .ic2 {
+            margin-top: 30px;
+        }
+
+        .input {
+            background-color: #303245;
+            border-radius: 12px;
+            border: 0;
+            box-sizing: border-box;
+            color: #eee;
+            font-size: 18px;
+            height: 100%;
+            outline: 0;
+            padding: 4px 20px 0;
+            width: 100%;
+        }
+
+        .cut {
+            background-color: #15172b;
+            border-radius: 10px;
+            height: 20px;
+            left: 20px;
+            position: absolute;
+            top: -20px;
+            transform: translateY(0);
+            transition: transform 200ms;
+            width: 76px;
+        }
+
+        .cut-short {
+            width: 50px;
+        }
+
+        .input:focus ~ .cut,
+        .input:not(:placeholder-shown) ~ .cut {
+            transform: translateY(8px);
+        }
+
+        .placeholder {
+            color: #65657b;
+            font-family: sans-serif;
+            left: 20px;
+            line-height: 14px;
+            pointer-events: none;
+            position: absolute;
+            transform-origin: 0 50%;
+            transition: transform 200ms, color 200ms;
+            top: 20px;
+        }
+
+        .input:focus ~ .placeholder,
+        .input:not(:placeholder-shown) ~ .placeholder {
+            transform: translateY(-30px) translateX(10px) scale(0.75);
+        }
+
+        .input:not(:placeholder-shown) ~ .placeholder {
+            color: #808097;
+        }
+
+        .input:focus ~ .placeholder {
+            color: #dc2f55;
+        }
+
+        .submit {
+            background-color: #08d;
+            border-radius: 12px;
+            border: 0;
+            box-sizing: border-box;
+            color: #eee;
+            cursor: pointer;
+            font-size: 18px;
+            height: 50px;
+            margin-top: 38px;
+        // outline: 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .submit:active {
+            background-color: #06b;
+        }
+
+    </style>
+</head>
+<form class="form" action="add" method="post" enctype="multipart/form-data">>
+    <div class="title">educAtoR</div>
+    <div class="subtitle">Add a new custom 3d model</div>
+    <div class="input-container ic1" >
+        <input id="subject" name="subject" class="input" type="text" placeholder=" " required />
+        <div class="cut"></div>
+        <label for="subject" class="placeholder">Subject</label>
+    </div>
+    <div class="input-container ic2">
+        <input id="name" name="name" class="input" type="text" placeholder=" " required/>
+        <div class="cut"></div>
+        <label for="name" class="placeholder">Model Name</label>
+    </div>
+    <div class="input-container ic1" >
+        <p style="color: #eeeeee">Pattern Use <a href="/generate" > this</a> to generate pattern file</p>
+        <input id="pattern"  name="pattern" class="input" type="file" placeholder=" " required />
+    </div>
+    <div style="padding-top: 20px" ></div>
+    <div class="input-container ic1" >
+        <p style="color: #eeeeee">Upload 3d Model</p>
+        <input id="model"  name="model" class="input" type="file" placeholder=" " required />
+    </div>
+    <div style="padding-top: 30px" ></div>
+
+    <div class="input-container ic2">
+        <input id="scale" name="scale" class="input" type="text" placeholder=" " required/>
+        <div class="cut cut-short"></div>
+        <label for="scale" class="placeholder">Scale (1 1 1)</label>
+    </div>
+    <input type="submit" value="Submit" class="submit">
+</form>

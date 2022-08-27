@@ -23,9 +23,12 @@
    ```shell
    git clone https://github.com/a-elrawy/educator
    ```
-2. run the app by uploading to a web server or on localhost:
+2. run the app by deploying to a web server or on localhost:
     ```shell
-    /chemistry.html -> Chemistry
-    /geology.html -> Geology
-    /biology.html -> Biology
+    /index.html
     ```
+3. For Adding a new Custom 3d Model Install [node][https://nodejs.org/en/] and install dependencies in package.json
+    ```javascript
+   npm install
+   node add_custom_model.js             # Listening on port 8080 by default
+   ```

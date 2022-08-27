@@ -1,0 +1,20 @@
+[
+  {
+    "name": "earth",
+    "src": "assets/models/earth.glb",
+    "pattern": "assets/markers/pattern/earth.patt",
+    "scale": "0.5 0.5 0.5"
+  },
+  {
+    "name": "fluorite",
+    "src": "assets/models/fluorite.glb",
+    "pattern": "assets/markers/pattern/fluorite.patt",
+    "scale": "0.02 0.02 0.02"
+  },
+  {
+    "name": "aragonite",
+    "src": "assets/models/aragonite.glb",
+    "pattern": "assets/markers/pattern/aragonite.patt",
+    "scale": "0.1 0.1 0.1"
+  }
+]

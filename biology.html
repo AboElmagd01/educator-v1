@@ -7,6 +7,10 @@
         <script src="assets/lib/js/aframe-extras.loaders.min.js"></script>
         <script src="assets/lib/js/gesture-detector.js"></script>
         <script src="assets/lib/js/gesture-handler.js"></script>
+        <script src="models/Marker.js"></script>
+        <script src="models/MarkerPattern.js"></script>
+        <script src="models/CustomAsset.js"></script>
+        <script src="models/CustomModel.js"></script>
         <script type="module" src="assets/lib/js/model-viewer.min.js"></script>
 
 
@@ -15,6 +19,17 @@
             let loaded;
             let reaction=0;
             window.onload = function () {
+                fetch('./biology.json')
+                    .then((response) => response.json())
+                    .then((json) => {
+                        for (const model of json) {
+                            const marker = new MarkerPattern(model.name, model.pattern).get_entity();
+                            document.querySelector('a-scene').appendChild(marker);
+                            document.querySelector('a-assets').appendChild(new CustomAsset(model.name, model.src).get_entity());
+                            marker.appendChild(new CustomModel(model.name, model.scale).get_entity())
+                        }
+                    });
+
                 document.querySelector('a-scene').addEventListener('markerFound', (evt)=>{
                     loaded = evt.target.id.toString().split('-')[0];
                     loadedModels.add(loaded);
@@ -153,31 +168,9 @@
             gesture-detector
         >
             <a-assets class="assists">
-                <a-asset-item
-                    id="liver-asset"
-                    src="assets/models/liver.glb"
-                ></a-asset-item>
             </a-assets>
 
 
-            <a-marker
-                id="liver-marker"
-                type="pattern"
-                preset="custom"
-                url="assets/markers/pattern/liver.patt"
-                raycaster="objects: .clickable"
-                emitevents="true"
-                cursor="fuse: false; rayOrigin: mouse;"
-            >
-                <a-entity
-                    id="liver-model"
-                    scale="1 1 1"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#liver-asset"
-                    class="clickable"
-                    gesture-handler
-                ></a-entity>
-            </a-marker>
 
             <a-entity camera></a-entity>
 

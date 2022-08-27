@@ -13,6 +13,7 @@
         <script src="models/Bond.js"></script>
         <script src="models/Atom.js"></script>
         <script src="models/Marker.js"></script>
+        <script src="models/MarkerBarcode.js"></script>
         <script src="models/Orbit.js"></script>
         <script src="models/Molecule.js"></script>
         <script src="chemistry.js" ></script>
@@ -24,7 +25,7 @@
                 // Generate and Register Markers for All Elements
                 let barcodeCounter=200;
                 for (let atom in ElectronsNumber){
-                    const marker = new Marker(atom, barcodeCounter).get_entity();
+                    const marker = new MarkerBarcode(atom, barcodeCounter).get_entity();
                     document.querySelector('a-scene').appendChild(marker);
                     barcodeCounter++;
                 }
