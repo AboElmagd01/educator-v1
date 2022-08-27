@@ -1,5 +1,6 @@
 # educAtoR
 >  An enhanced application enable students to learn more proactively with 3d designs in the science fields, AR-based application that allow the user to interact with the models and do lab’s experiments.  [Landing  Page](https://educator-ar.netlify.app/)
+>  [Static Deploy](https://a-elrawy.github.io/educator/)
 
 
 ## Features
